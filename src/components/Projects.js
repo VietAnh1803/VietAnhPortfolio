@@ -22,17 +22,22 @@ const Projects = () => {
         </p>
         <ul className="list-disc list-inside space-y-3 text-indigo-900 max-h-72 overflow-y-auto scrollbar-thin pr-3 select-text">
           <li>
-            <span className="font-semibold text-indigo-800">Description:</span> Developed a multi-vendor
-            e-commerce platform following the C2C model, enabling individual customers to buy and sell products
-            directly to each other. This platform is specifically focused on selling clothing.
+            <span className="font-semibold text-indigo-800">Description:</span>{" "}
+            Developed a multi-vendor e-commerce platform following the C2C
+            model, enabling individual customers to buy and sell products
+            directly to each other. This platform is specifically focused on
+            selling clothing.
           </li>
           <li>
-            <span className="font-semibold text-indigo-800">Team:</span> 4 people (2 Frontend, 2 Backend).
+            <span className="font-semibold text-indigo-800">Team:</span> 4
+            people (2 Frontend, 2 Backend).
           </li>
           <li>
-            <span className="font-semibold text-indigo-800">Role:</span> Frontend Developer responsible for
-            designing the user interface for customers using Figma, and implementing it with ReactJS and TailwindCSS
-            to ensure a responsive, interactive, and user-friendly experience.
+            <span className="font-semibold text-indigo-800">Role:</span>{" "}
+            Frontend Developer responsible for designing the user interface for
+            customers using Figma, and implementing it with ReactJS and
+            TailwindCSS to ensure a responsive, interactive, and user-friendly
+            experience.
           </li>
           <li>
             <span className="font-semibold text-indigo-800">Figma Design:</span>{" "}
@@ -46,7 +51,9 @@ const Projects = () => {
             </a>
           </li>
           <li>
-            <span className="font-semibold text-indigo-800">GitHub Repository:</span>{" "}
+            <span className="font-semibold text-indigo-800">
+              GitHub Repository:
+            </span>{" "}
             <a
               className="underline-animated"
               href="https://github.com/HoaNguyenz/Multi_vendor_ecom"
@@ -74,17 +81,19 @@ const Projects = () => {
         </p>
         <ul className="list-disc list-inside space-y-3 text-indigo-900 max-h-72 overflow-y-auto scrollbar-thin pr-3 select-text">
           <li>
-            <span className="font-semibold text-indigo-800">Description:</span> Developed a Smart Farm IoT System
-            to automate the monitoring and control of environmental conditions for dragon fruit farms.
+            <span className="font-semibold text-indigo-800">Description:</span>{" "}
+            Developed a Smart Farm IoT System to automate the monitoring and
+            control of environmental conditions for dragon fruit farms.
           </li>
           <li>
-            <span className="font-semibold text-indigo-800">Team:</span> 5 people (2 Frontend, 2 Backend, 1 IoT
-            Developer).
+            <span className="font-semibold text-indigo-800">Team:</span> 5
+            people (2 Frontend, 2 Backend, 1 IoT Developer).
           </li>
           <li>
-            <span className="font-semibold text-indigo-800">Role:</span> Frontend Developer responsible for
-            designing and implementing user interfaces, particularly focusing on the dashboard to display real-time
-            environmental data from IoT devices.
+            <span className="font-semibold text-indigo-800">Role:</span>{" "}
+            Frontend Developer responsible for designing and implementing user
+            interfaces, particularly focusing on the dashboard to display
+            real-time environmental data from IoT devices.
           </li>
           <li>
             <span className="font-semibold text-indigo-800">Figma Design:</span>{" "}
@@ -98,10 +107,12 @@ const Projects = () => {
             </a>
           </li>
           <li>
-            <span className="font-semibold text-indigo-800">GitHub Repository:</span>{" "}
+            <span className="font-semibold text-indigo-800">
+              GitHub Repository:
+            </span>{" "}
             <a
               className="underline-animated"
-              href="https://github.com/baohuynhhcmut/DADN.git"
+              href="https://github.com/baohuynhhcmut/smartfarm-fe"
               rel="noopener noreferrer"
               target="_blank"
             >
