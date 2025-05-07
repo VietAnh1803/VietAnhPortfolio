@@ -73,7 +73,7 @@ const Projects = () => {
             Smart Farm IoT System
           </h3>
           <time className="text-indigo-600 font-semibold text-lg mt-3 sm:mt-0 whitespace-nowrap select-text">
-            Feb 2025 – May 2025 (expected)
+            Feb 2025 – May 2025 
           </time>
         </div>
         <p className="italic text-indigo-700 mb-6 text-lg tracking-wide select-text">
@@ -91,9 +91,7 @@ const Projects = () => {
           </li>
           <li>
             <span className="font-semibold text-indigo-800">Role:</span>{" "}
-            Frontend Developer responsible for designing and implementing user
-            interfaces, particularly focusing on the dashboard to display
-            real-time environmental data from IoT devices.
+            As a Frontend Developer, I am responsible for designing and implementing user interfaces, with a particular focus on creating a dynamic dashboard that displays real-time environmental data from IoT devices. I ensure a responsive, user-friendly experience across multiple devices, while also conducting thorough testing to identify and fix bugs and issues. Additionally, I am responsible for developing and managing an admin user interface for user management, including functionality for creating, updating, and deleting user profiles. I also integrate and fetch APIs to support various functionalities, ensuring smooth communication between the frontend and backend services. This includes handling authentication, data retrieval, and real-time updates to ensure a seamless user experience.
           </li>
           <li>
             <span className="font-semibold text-indigo-800">Figma Design:</span>{" "}
