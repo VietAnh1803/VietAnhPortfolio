@@ -1,25 +1,16 @@
 {
   "files": {
-    "main.css": "/VietAnhPortfolio/static/css/main.db683005.chunk.css",
-    "main.js": "/VietAnhPortfolio/static/js/main.a53ece29.chunk.js",
-    "main.js.map": "/VietAnhPortfolio/static/js/main.a53ece29.chunk.js.map",
-    "runtime-main.js": "/VietAnhPortfolio/static/js/runtime-main.cee63501.js",
-    "runtime-main.js.map": "/VietAnhPortfolio/static/js/runtime-main.cee63501.js.map",
-    "static/js/2.2e64cdf8.chunk.js": "/VietAnhPortfolio/static/js/2.2e64cdf8.chunk.js",
-    "static/js/2.2e64cdf8.chunk.js.map": "/VietAnhPortfolio/static/js/2.2e64cdf8.chunk.js.map",
-    "static/js/3.9ae2c7b3.chunk.js": "/VietAnhPortfolio/static/js/3.9ae2c7b3.chunk.js",
-    "static/js/3.9ae2c7b3.chunk.js.map": "/VietAnhPortfolio/static/js/3.9ae2c7b3.chunk.js.map",
+    "main.css": "/VietAnhPortfolio/static/css/main.abdf4bdc.css",
+    "main.js": "/VietAnhPortfolio/static/js/main.51c8277d.js",
+    "static/js/453.83234151.chunk.js": "/VietAnhPortfolio/static/js/453.83234151.chunk.js",
+    "static/media/avatar.jpg": "/VietAnhPortfolio/static/media/avatar.6a5ee5437f0c1b99c427.jpg",
     "index.html": "/VietAnhPortfolio/index.html",
-    "precache-manifest.5221c36050b3101fe0ea73a16603ddec.js": "/VietAnhPortfolio/precache-manifest.5221c36050b3101fe0ea73a16603ddec.js",
-    "service-worker.js": "/VietAnhPortfolio/service-worker.js",
-    "static/css/main.db683005.chunk.css.map": "/VietAnhPortfolio/static/css/main.db683005.chunk.css.map",
-    "static/js/2.2e64cdf8.chunk.js.LICENSE.txt": "/VietAnhPortfolio/static/js/2.2e64cdf8.chunk.js.LICENSE.txt",
-    "static/media/avatar.jpg": "/VietAnhPortfolio/static/media/avatar.9c3e1ea1.jpg"
+    "main.abdf4bdc.css.map": "/VietAnhPortfolio/static/css/main.abdf4bdc.css.map",
+    "main.51c8277d.js.map": "/VietAnhPortfolio/static/js/main.51c8277d.js.map",
+    "453.83234151.chunk.js.map": "/VietAnhPortfolio/static/js/453.83234151.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.cee63501.js",
-    "static/js/2.2e64cdf8.chunk.js",
-    "static/css/main.db683005.chunk.css",
-    "static/js/main.a53ece29.chunk.js"
+    "static/css/main.abdf4bdc.css",
+    "static/js/main.51c8277d.js"
   ]
 }
