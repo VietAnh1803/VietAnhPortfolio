@@ -1,16 +1,18 @@
 {
   "files": {
-    "main.css": "/static/css/main.abdf4bdc.css",
-    "main.js": "/static/js/main.619ce1a0.js",
-    "static/js/453.83234151.chunk.js": "/static/js/453.83234151.chunk.js",
-    "static/media/avatar.jpg": "/static/media/avatar.6a5ee5437f0c1b99c427.jpg",
-    "index.html": "/index.html",
-    "main.abdf4bdc.css.map": "/static/css/main.abdf4bdc.css.map",
-    "main.619ce1a0.js.map": "/static/js/main.619ce1a0.js.map",
-    "453.83234151.chunk.js.map": "/static/js/453.83234151.chunk.js.map"
-  },
-  "entrypoints": [
-    "static/css/main.abdf4bdc.css",
-    "static/js/main.619ce1a0.js"
-  ]
+    "main.css": "/VietAnhPortfolio/static/css/main.db683005.chunk.css",
+    "main.js": "/VietAnhPortfolio/static/js/main.bdf24de9.chunk.js",
+    "main.js.map": "/VietAnhPortfolio/static/js/main.bdf24de9.chunk.js.map",
+    "runtime~main.js": "/VietAnhPortfolio/static/js/runtime~main.69348748.js",
+    "runtime~main.js.map": "/VietAnhPortfolio/static/js/runtime~main.69348748.js.map",
+    "static/js/2.9e11b540.chunk.js": "/VietAnhPortfolio/static/js/2.9e11b540.chunk.js",
+    "static/js/2.9e11b540.chunk.js.map": "/VietAnhPortfolio/static/js/2.9e11b540.chunk.js.map",
+    "static/js/3.a29efab2.chunk.js": "/VietAnhPortfolio/static/js/3.a29efab2.chunk.js",
+    "static/js/3.a29efab2.chunk.js.map": "/VietAnhPortfolio/static/js/3.a29efab2.chunk.js.map",
+    "index.html": "/VietAnhPortfolio/index.html",
+    "precache-manifest.a3742f1f01cf4e2143a037fa9626c5b0.js": "/VietAnhPortfolio/precache-manifest.a3742f1f01cf4e2143a037fa9626c5b0.js",
+    "service-worker.js": "/VietAnhPortfolio/service-worker.js",
+    "static/css/main.db683005.chunk.css.map": "/VietAnhPortfolio/static/css/main.db683005.chunk.css.map",
+    "static/media/avatar.jpg": "/VietAnhPortfolio/static/media/avatar.9c3e1ea1.jpg"
+  }
 }
