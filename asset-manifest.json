@@ -1,18 +1,25 @@
 {
   "files": {
     "main.css": "/VietAnhPortfolio/static/css/main.db683005.chunk.css",
-    "main.js": "/VietAnhPortfolio/static/js/main.bdf24de9.chunk.js",
-    "main.js.map": "/VietAnhPortfolio/static/js/main.bdf24de9.chunk.js.map",
-    "runtime~main.js": "/VietAnhPortfolio/static/js/runtime~main.69348748.js",
-    "runtime~main.js.map": "/VietAnhPortfolio/static/js/runtime~main.69348748.js.map",
-    "static/js/2.9e11b540.chunk.js": "/VietAnhPortfolio/static/js/2.9e11b540.chunk.js",
-    "static/js/2.9e11b540.chunk.js.map": "/VietAnhPortfolio/static/js/2.9e11b540.chunk.js.map",
-    "static/js/3.a29efab2.chunk.js": "/VietAnhPortfolio/static/js/3.a29efab2.chunk.js",
-    "static/js/3.a29efab2.chunk.js.map": "/VietAnhPortfolio/static/js/3.a29efab2.chunk.js.map",
+    "main.js": "/VietAnhPortfolio/static/js/main.a53ece29.chunk.js",
+    "main.js.map": "/VietAnhPortfolio/static/js/main.a53ece29.chunk.js.map",
+    "runtime-main.js": "/VietAnhPortfolio/static/js/runtime-main.cee63501.js",
+    "runtime-main.js.map": "/VietAnhPortfolio/static/js/runtime-main.cee63501.js.map",
+    "static/js/2.2e64cdf8.chunk.js": "/VietAnhPortfolio/static/js/2.2e64cdf8.chunk.js",
+    "static/js/2.2e64cdf8.chunk.js.map": "/VietAnhPortfolio/static/js/2.2e64cdf8.chunk.js.map",
+    "static/js/3.9ae2c7b3.chunk.js": "/VietAnhPortfolio/static/js/3.9ae2c7b3.chunk.js",
+    "static/js/3.9ae2c7b3.chunk.js.map": "/VietAnhPortfolio/static/js/3.9ae2c7b3.chunk.js.map",
     "index.html": "/VietAnhPortfolio/index.html",
-    "precache-manifest.a3742f1f01cf4e2143a037fa9626c5b0.js": "/VietAnhPortfolio/precache-manifest.a3742f1f01cf4e2143a037fa9626c5b0.js",
+    "precache-manifest.5221c36050b3101fe0ea73a16603ddec.js": "/VietAnhPortfolio/precache-manifest.5221c36050b3101fe0ea73a16603ddec.js",
     "service-worker.js": "/VietAnhPortfolio/service-worker.js",
     "static/css/main.db683005.chunk.css.map": "/VietAnhPortfolio/static/css/main.db683005.chunk.css.map",
+    "static/js/2.2e64cdf8.chunk.js.LICENSE.txt": "/VietAnhPortfolio/static/js/2.2e64cdf8.chunk.js.LICENSE.txt",
     "static/media/avatar.jpg": "/VietAnhPortfolio/static/media/avatar.9c3e1ea1.jpg"
-  }
+  },
+  "entrypoints": [
+    "static/js/runtime-main.cee63501.js",
+    "static/js/2.2e64cdf8.chunk.js",
+    "static/css/main.db683005.chunk.css",
+    "static/js/main.a53ece29.chunk.js"
+  ]
 }
