@@ -75,7 +75,7 @@ const Header = () => {
             <a
               aria-label="LinkedIn Profile"
               className="hover:text-indigo-800 transition"
-              href="www.linkedin.com/in/anh-nguyen-viet-835081336"
+              href="https://www.linkedin.com/in/anh-nguyen-viet-835081336"
               rel="noopener noreferrer"
               target="_blank"
               title="LinkedIn"
