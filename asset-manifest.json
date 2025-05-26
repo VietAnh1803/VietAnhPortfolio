@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/VietAnhPortfolio/static/css/main.1d6a98a3.css",
-    "main.js": "/VietAnhPortfolio/static/js/main.263d4bf2.js",
+    "main.js": "/VietAnhPortfolio/static/js/main.ec551a07.js",
     "static/js/453.83234151.chunk.js": "/VietAnhPortfolio/static/js/453.83234151.chunk.js",
     "static/media/avatar.jpg": "/VietAnhPortfolio/static/media/avatar.6a5ee5437f0c1b99c427.jpg",
     "index.html": "/VietAnhPortfolio/index.html",
     "main.1d6a98a3.css.map": "/VietAnhPortfolio/static/css/main.1d6a98a3.css.map",
-    "main.263d4bf2.js.map": "/VietAnhPortfolio/static/js/main.263d4bf2.js.map",
+    "main.ec551a07.js.map": "/VietAnhPortfolio/static/js/main.ec551a07.js.map",
     "453.83234151.chunk.js.map": "/VietAnhPortfolio/static/js/453.83234151.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.1d6a98a3.css",
-    "static/js/main.263d4bf2.js"
+    "static/js/main.ec551a07.js"
   ]
 }
