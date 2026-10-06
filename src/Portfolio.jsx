@@ -1,5 +1,4 @@
-import { useEffect, useRef, useState } from "react";
-import portrait from "./assets/avatar.jpg";
+import { useState } from "react";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const email = "nguyenvietanh1803.hcmut@gmail.com";
@@ -73,31 +72,6 @@ const moreCredentials = [
   ],
 ];
 
-function useReveals() {
-  useEffect(() => {
-    const items = document.querySelectorAll("[data-reveal]");
-    if (
-      !("IntersectionObserver" in window) ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    ) {
-      items.forEach((item) => item.classList.add("visible"));
-      return;
-    }
-    const observer = new IntersectionObserver(
-      (entries) =>
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        }),
-      { threshold: 0.08, rootMargin: "0px 0px -30px 0px" },
-    );
-    items.forEach((item) => observer.observe(item));
-    return () => observer.disconnect();
-  }, []);
-}
-
 function Nav() {
   const [open, setOpen] = useState(false);
   return (
@@ -108,7 +82,7 @@ function Nav() {
           href="#top"
           aria-label="Nguyen Viet Anh, back to top"
         >
-          NVA<span>.</span>
+          NVA<span>.</span> <small>Portfolio / 2026</small>
         </a>
         <button
           className="menu-button"
@@ -148,49 +122,80 @@ function Nav() {
   );
 }
 
-function Portrait() {
-  const element = useRef(null);
-  const move = (event) => {
-    if (event.pointerType !== "mouse") return;
-    if (
-      !element.current ||
-      window.matchMedia("(prefers-reduced-motion: reduce)").matches
-    )
-      return;
-    const rect = element.current.getBoundingClientRect();
-    element.current.style.setProperty(
-      "--rx",
-      `${-((event.clientY - rect.top) / rect.height - 0.5) * 6}deg`,
-    );
-    element.current.style.setProperty(
-      "--ry",
-      `${((event.clientX - rect.left) / rect.width - 0.5) * 8}deg`,
-    );
-  };
-  const reset = () => {
-    if (element.current) {
-      element.current.style.setProperty("--rx", "0deg");
-      element.current.style.setProperty("--ry", "0deg");
-    }
-  };
+const systems = [
+  {
+    name: "Warehouse",
+    eyebrow: "01 / DATA ENGINEERING",
+    nodes: [
+      ["Source", "Insurance records", "Oracle · CDC"],
+      ["Process", "Load & reconcile", "ODI · PL/SQL"],
+      ["Outcome", "Trustworthy counts", "82 → 1 corrected in one case"],
+    ],
+    footnote: "Also corrected sales-channel classifications across ~68k rows.",
+  },
+  {
+    name: "Retrieval",
+    eyebrow: "02 / APPLIED AI",
+    nodes: [
+      ["Source", "Vietnamese reports", "Financial statements"],
+      ["Process", "Hybrid retrieval", "SQL · pgvector · OpenSearch"],
+      ["Outcome", "Cited answers", "Source-page references"],
+    ],
+    footnote:
+      "A report pipeline built at OSAS, from figures and heading chunks to answers.",
+  },
+  {
+    name: "Evaluation",
+    eyebrow: "03 / RESEARCH",
+    nodes: [
+      ["Source", "Wearable signals", "WESAD · 15 participants"],
+      ["Process", "LOSO validation", "869 windows"],
+      ["Outcome", "93.8% accuracy", "Mean · full-record normalization"],
+    ],
+    footnote:
+      "HealthMate stress-model result; resting-only calibration remains to be validated.",
+  },
+];
+
+function SystemsAtlas() {
+  const [active, setActive] = useState(0);
+  const system = systems[active];
   return (
     <div
-      ref={element}
-      className="portrait-stage"
-      onPointerMove={move}
-      onPointerLeave={reset}
+      className="systems-atlas"
+      aria-label="Explore three kinds of data systems I work on"
     >
-      <div className="portrait-grid" aria-hidden="true" />
-      <div className="portrait-frame">
-        <img src={portrait} alt="Portrait of Nguyen Viet Anh" />
+      <div className="atlas-topline">
+        <span>FIELD NOTES / 01—03</span>
+        <span>SELECT A SYSTEM ↓</span>
       </div>
-      <span className="stage-corner stage-corner-a" aria-hidden="true" />
-      <span className="stage-corner stage-corner-b" aria-hidden="true" />
-      <p className="portrait-caption">
-        Nguyen Viet Anh
-        <br />
-        Ho Chi Minh City, VN
-      </p>
+      <div className="atlas-select" role="group" aria-label="System type">
+        {systems.map((item, index) => (
+          <button
+            key={item.name}
+            type="button"
+            aria-pressed={active === index}
+            onClick={() => setActive(index)}
+          >
+            <span>0{index + 1}</span> {item.name}
+          </button>
+        ))}
+      </div>
+      <div className="atlas-content" key={system.name} aria-live="polite">
+        <p className="atlas-eyebrow">{system.eyebrow}</p>
+        <div className="atlas-flow">
+          {system.nodes.map(([label, title, detail], index) => (
+            <div className="atlas-node" key={label}>
+              <small>
+                {label} / 0{index + 1}
+              </small>
+              <strong>{title}</strong>
+              <span>{detail}</span>
+            </div>
+          ))}
+        </div>
+        <p className="atlas-footnote">{system.footnote}</p>
+      </div>
     </div>
   );
 }
@@ -198,32 +203,36 @@ function Portrait() {
 function Hero() {
   return (
     <section className="hero shell" id="top">
-      <div className="hero-copy">
-        <p className="hero-kicker">
-          <span /> Data Engineer / Applied ML
-        </p>
-        <h1>
-          Nguyen
-          <br />
-          <strong>Viet Anh.</strong>
-        </h1>
-        <p className="hero-description">
-          I build reliable data systems and evaluate machine learning for
-          real-world use.
-        </p>
-        <div className="hero-actions">
-          <a className="button-primary" href="#work">
-            Explore work <Arrow />
-          </a>
-          <Link
-            className="underlined-link"
-            href="https://github.com/VietAnh1803"
-          >
-            GitHub
-          </Link>
-        </div>
+      <div className="hero-overline">
+        <span>DATA ENGINEER / APPLIED ML</span>
+        <span>HO CHI MINH CITY, VN</span>
       </div>
-      <Portrait />
+      <h1>
+        <span>Nguyen</span>
+        <strong>
+          Viet Anh<span className="hero-period">.</span>
+        </strong>
+      </h1>
+      <div className="hero-lower">
+        <div className="hero-copy">
+          <p className="hero-description">
+            I build reliable data systems and evaluate machine learning for
+            real-world use.
+          </p>
+          <div className="hero-actions">
+            <a className="button-primary" href="#work">
+              Selected work <Arrow />
+            </a>
+            <Link
+              className="underlined-link"
+              href="https://github.com/VietAnh1803"
+            >
+              GitHub
+            </Link>
+          </div>
+        </div>
+        <SystemsAtlas />
+      </div>
     </section>
   );
 }
@@ -336,13 +345,13 @@ function HealthVisual() {
 function Work() {
   return (
     <section className="work section-pad shell" id="work">
-      <div className="section-head" data-reveal>
+      <div className="section-head">
         <h2>
           Selected work<span className="period">.</span>
         </h2>
         <p>Research, engineering, and the details that connect them.</p>
       </div>
-      <article className="featured-project" data-reveal>
+      <article className="featured-project">
         <div className="feature-copy">
           <span className="project-type">Research / 2025–2026</span>
           <h3>HealthMate</h3>
@@ -367,7 +376,7 @@ function Work() {
         <HealthVisual />
       </article>
       <div className="project-grid">
-        <article className="project-panel sags-panel" data-reveal>
+        <article className="project-panel sags-panel">
           <div className="panel-meta">
             <span>Applied AI</span>
             <span>OSAS</span>
@@ -401,7 +410,7 @@ function Work() {
             <span>Ollama</span>
           </div>
         </article>
-        <article className="project-panel warehouse-panel" data-reveal>
+        <article className="project-panel warehouse-panel">
           <div className="panel-meta">
             <span>Data engineering</span>
             <span>OSAS</span>
@@ -429,7 +438,7 @@ function Work() {
           </div>
         </article>
       </div>
-      <div className="earlier-work" data-reveal>
+      <div className="earlier-work">
         <h3>Earlier work</h3>
         <div>
           <Link href="https://github.com/HoaNguyenz/Multi_vendor_ecom">
@@ -470,7 +479,7 @@ function Experience() {
   return (
     <section className="experience section-pad" id="experience">
       <div className="shell experience-grid">
-        <div className="experience-intro" data-reveal>
+        <div className="experience-intro">
           <h2>
             Built through
             <br />
@@ -483,7 +492,7 @@ function Experience() {
         </div>
         <div className="timeline">
           {roles.map(([date, title, place, desc]) => (
-            <article key={title} data-reveal>
+            <article key={title}>
               <time>{date}</time>
               <h3>
                 {title} <span>{place}</span>
@@ -511,12 +520,12 @@ function Toolkit() {
   ];
   return (
     <section className="toolkit section-pad shell">
-      <h2 data-reveal>
+      <h2>
         Tools I use<span className="period">.</span>
       </h2>
       <div className="toolkit-grid">
         {groups.map(([name, tools]) => (
-          <div key={name} data-reveal>
+          <div key={name}>
             <h3>{name}</h3>
             <p>{tools}</p>
           </div>
@@ -530,7 +539,7 @@ function Credentials() {
   return (
     <section className="credentials section-pad" id="credentials">
       <div className="shell">
-        <div className="credentials-head" data-reveal>
+        <div className="credentials-head">
           <h2>
             Continued learning<span className="period">.</span>
           </h2>
@@ -556,7 +565,7 @@ function Credentials() {
             </Link>
           ))}
         </div>
-        <details className="more-credentials" data-reveal>
+        <details className="more-credentials">
           <summary>
             More credentials <span aria-hidden="true">+</span>
           </summary>
@@ -598,7 +607,6 @@ function Footer() {
 }
 
 export default function Portfolio() {
-  useReveals();
   return (
     <>
       <Nav />

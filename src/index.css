@@ -5,9 +5,11 @@
 }
 html {
   scroll-behavior: smooth;
+  overflow-x: clip;
 }
 body {
   margin: 0;
+  overflow-x: clip;
 }
 button {
   font: inherit;

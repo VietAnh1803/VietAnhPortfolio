@@ -1,0 +1,30 @@
+:root {
+  --bg: #111716;
+  --surface: #19201e;
+  --surface-2: #202825;
+  --ink: #f1f3eb;
+  --muted: #adb8ae;
+  --quiet: #87948a;
+  --line: #39453d;
+  --accent: #d7ef73;
+  --accent-hover: #e6fa99;
+  --paper: #e8ebe1;
+  --paper-ink: #1c2821;
+  --atlas-surface: #202a24;
+  --atlas-rule: #5a6c59;
+  --atlas-soft: #b7c8b4;
+  --atlas-muted: #8fa18f;
+
+  --font-display: "Manrope", "Aptos", "Segoe UI", Arial, sans-serif;
+  --font: "Manrope", "Aptos", "Segoe UI", Arial, sans-serif;
+  --mono: "IBM Plex Mono", Consolas, monospace;
+
+  --space-xs: 8px;
+  --space-sm: 16px;
+  --space-md: 24px;
+  --space-lg: 32px;
+  --space-xl: 48px;
+  --space-2xl: 72px;
+  --space-3xl: 104px;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}

@@ -1,0 +1,9 @@
+{
+  "scannedAt": "2026-10-06",
+  "fontStack": "Manrope + IBM Plex Mono",
+  "palette": "dark green ink with chartreuse accent",
+  "motion": "CSS-only, reduced-motion supported",
+  "spacing": "named 8px-based scale in tokens.css",
+  "framework": "React 18 + Vite 7",
+  "sources": ["package.json", "src/Portfolio.css", "src/index.css", "index.html"]
+}

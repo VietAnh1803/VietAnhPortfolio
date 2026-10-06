@@ -7,7 +7,7 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src",
-    "format:check": "prettier --check src index.html vite.config.js eslint.config.js README.md",
+    "format:check": "prettier --check src tokens.css index.html vite.config.js eslint.config.js README.md",
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist --dotfiles"
