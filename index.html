@@ -3,7 +3,25 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#111716" />
+    <meta name="theme-color" content="#090a0f" />
+    <script>
+      (() => {
+        try {
+          const saved = localStorage.getItem("nva-theme");
+          const theme =
+            saved === "light" || saved === "dark"
+              ? saved
+              : matchMedia("(prefers-color-scheme: dark)").matches
+                ? "dark"
+                : "light";
+          document.documentElement.dataset.theme = theme;
+          document.querySelector('meta[name="theme-color"]').content =
+            theme === "dark" ? "#090a0f" : "#f8f7f5";
+        } catch {
+          document.documentElement.dataset.theme = "dark";
+        }
+      })();
+    </script>
     <meta
       name="description"
       content="Nguyen Viet Anh is a data engineer working across reliable data systems, applied machine learning, and model evaluation."
@@ -45,8 +63,8 @@
         ]
       }
     </script>
-    <script type="module" crossorigin src="/VietAnhPortfolio/assets/index-B9psbT0f.js"></script>
-    <link rel="stylesheet" crossorigin href="/VietAnhPortfolio/assets/index-C2_qH2W3.css">
+    <script type="module" crossorigin src="/VietAnhPortfolio/assets/index-B8Iz82lp.js"></script>
+    <link rel="stylesheet" crossorigin href="/VietAnhPortfolio/assets/index-CXw1-Ghj.css">
   </head>
   <body>
     <div id="root"></div>
