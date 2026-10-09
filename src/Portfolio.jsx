@@ -786,7 +786,7 @@ function Footer() {
             >
               {copied ? "✓ Email copied" : `Copy: ${email}`}
             </button>
-            <Link href="https://www.linkedin.com/in/anh-nguyen-viet-835081336">
+            <Link href="https://www.linkedin.com/in/nguyenvietanh180304/">
               LinkedIn profile
             </Link>
           </div>
@@ -797,7 +797,7 @@ function Footer() {
             APPLIED ML
           </span>
           <div>
-            <Link href="https://www.linkedin.com/in/anh-nguyen-viet-835081336">
+            <Link href="https://www.linkedin.com/in/nguyenvietanh180304/">
               LinkedIn
             </Link>
             <Link href="https://github.com/VietAnh1803">GitHub</Link>
