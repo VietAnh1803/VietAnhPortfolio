@@ -1,89 +1,184 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const email = "nguyenvietanh1803.hcmut@gmail.com";
 const external = { target: "_blank", rel: "noopener noreferrer" };
+const THEME_KEY = "nva-theme";
+
+function useThemePreference() {
+  const [preference, setPreference] = useState(() => {
+    try {
+      const saved = window.localStorage.getItem(THEME_KEY);
+      return ["system", "dark", "light"].includes(saved) ? saved : "system";
+    } catch {
+      return "system";
+    }
+  });
+
+  useEffect(() => {
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const applyTheme = () => {
+      const resolved =
+        preference === "system"
+          ? media.matches
+            ? "dark"
+            : "light"
+          : preference;
+      document.documentElement.dataset.theme = resolved;
+      document
+        .querySelector('meta[name="theme-color"]')
+        ?.setAttribute("content", resolved === "dark" ? "#090a0f" : "#f8f7f5");
+    };
+    applyTheme();
+    media.addEventListener("change", applyTheme);
+    try {
+      window.localStorage.setItem(THEME_KEY, preference);
+    } catch {
+      // The theme still works if storage is disabled.
+    }
+    return () => media.removeEventListener("change", applyTheme);
+  }, [preference]);
+
+  return [preference, setPreference];
+}
+
+function useScrollReveal() {
+  useEffect(() => {
+    if (
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      !("IntersectionObserver" in window)
+    )
+      return;
+    const elements = document.querySelectorAll("[data-reveal]");
+    document.documentElement.classList.add("motion-ready");
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.08, rootMargin: "0px 0px 40px 0px" },
+    );
+    elements.forEach((element) => observer.observe(element));
+    return () => {
+      observer.disconnect();
+      document.documentElement.classList.remove("motion-ready");
+    };
+  }, []);
+}
 const Arrow = ({ diagonal = false }) => (
   <span aria-hidden="true" className="arrow">
     {diagonal ? "↗" : "→"}
   </span>
 );
-const Link = ({ href, children, className = "" }) => (
+const Link = ({ href, children, className = "", showArrow = true }) => (
   <a href={href} className={className} {...external}>
     {children}
-    <Arrow diagonal />
+    {showArrow && <Arrow diagonal />}
   </a>
 );
 
 const credentials = [
-  [
-    "Python Project for Data Engineering",
-    "IBM · Coursera",
-    "Aug 2026",
-    "ibm-python-project.webp",
-    "https://www.coursera.org/verify/G0LTEVZM0KLX",
-  ],
-  [
-    "Databases and SQL for Data Science with Python",
-    "IBM · Coursera",
-    "Sep 2026",
-    "ibm-sql.webp",
-    "https://www.coursera.org/verify/1URYNTICH2R7",
-  ],
-  [
-    "Hands-on Introduction to Linux Commands",
-    "IBM · Coursera",
-    "Sep 2026",
-    "ibm-linux.webp",
-    "https://www.coursera.org/verify/FE815E5XYGDY",
-  ],
-];
-const moreCredentials = [
-  [
-    "Introduction to Data Engineering",
-    "IBM · Coursera",
-    "https://www.coursera.org/verify/M1BKYHR20V6U",
-  ],
-  [
-    "Introduction to Relational Databases",
-    "IBM · Coursera",
-    "https://www.coursera.org/verify/MQC0S2FFHCM5",
-  ],
-  [
-    "Python for Data Science, AI & Development",
-    "IBM · Coursera",
-    "https://www.coursera.org/verify/F3ZLX53QOUHF",
-  ],
-  [
-    "Google Sheets Fundamentals",
-    "DataCamp",
-    `${BASE}/credentials/datacamp-google-sheets.pdf`,
-  ],
-  [
-    "ChatGPT Fundamentals",
-    "DataCamp",
-    `${BASE}/credentials/datacamp-chatgpt.pdf`,
-  ],
-  ["Introduction to SQL", "SoloLearn", `${BASE}/credentials/sololearn-sql.pdf`],
-  [
-    "Graphic Design Essentials",
-    "Canva Design School",
-    `${BASE}/credentials/graphic-design.pdf`,
-  ],
+  {
+    title: "Python Project for Data Engineering",
+    issuer: "IBM · Coursera",
+    date: "Aug 2026",
+    image: "ibm-python-project.webp",
+    href: "https://www.coursera.org/verify/G0LTEVZM0KLX",
+  },
+  {
+    title: "Databases and SQL for Data Science with Python",
+    issuer: "IBM · Coursera",
+    date: "Sep 2026",
+    image: "ibm-sql.webp",
+    href: "https://www.coursera.org/verify/1URYNTICH2R7",
+  },
+  {
+    title: "Hands-on Introduction to Linux Commands",
+    issuer: "IBM · Coursera",
+    date: "Sep 2026",
+    image: "ibm-linux.webp",
+    href: "https://www.coursera.org/verify/FE815E5XYGDY",
+  },
+  {
+    title: "Introduction to Data Engineering",
+    issuer: "IBM · Coursera",
+    href: "https://www.coursera.org/verify/M1BKYHR20V6U",
+  },
+  {
+    title: "Introduction to Relational Databases",
+    issuer: "IBM · Coursera",
+    href: "https://www.coursera.org/verify/MQC0S2FFHCM5",
+  },
+  {
+    title: "Python for Data Science, AI & Development",
+    issuer: "IBM · Coursera",
+    href: "https://www.coursera.org/verify/F3ZLX53QOUHF",
+  },
+  {
+    title: "Google Sheets Fundamentals",
+    issuer: "DataCamp",
+    href: `${BASE}/credentials/datacamp-google-sheets.pdf`,
+  },
+  {
+    title: "ChatGPT Fundamentals",
+    issuer: "DataCamp",
+    href: `${BASE}/credentials/datacamp-chatgpt.pdf`,
+  },
+  {
+    title: "Introduction to SQL",
+    issuer: "SoloLearn",
+    href: `${BASE}/credentials/sololearn-sql.pdf`,
+  },
+  {
+    title: "Graphic Design Essentials",
+    issuer: "Canva Design School",
+    href: `${BASE}/credentials/graphic-design.pdf`,
+  },
 ];
 
-function Nav() {
+function ThemePicker({ preference, setPreference }) {
+  return (
+    <div className="theme-picker" role="group" aria-label="Color theme">
+      {[
+        ["system", "OS"],
+        ["light", "Light"],
+        ["dark", "Dark"],
+      ].map(([value, label]) => (
+        <button
+          key={value}
+          type="button"
+          aria-label={`${label} theme`}
+          aria-pressed={preference === value}
+          onClick={() => setPreference(value)}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+function Nav({ preference, setPreference }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header">
       <div className="shell nav-inner">
-        <a
-          className="wordmark"
-          href="#top"
-          aria-label="Nguyen Viet Anh, back to top"
-        >
-          NVA<span>.</span> <small>Portfolio / 2026</small>
-        </a>
+        <div className="nav-brand">
+          <a
+            className="wordmark"
+            href="#top"
+            aria-label="Nguyen Viet Anh, back to top"
+          >
+            NVA<span>.</span>
+          </a>
+          <span className="availability">
+            <i aria-hidden="true" /> Available for work
+          </span>
+        </div>
         <button
           className="menu-button"
           type="button"
@@ -106,17 +201,19 @@ function Nav() {
           <a href="#experience" onClick={() => setOpen(false)}>
             Experience
           </a>
+          <a href="#stack" onClick={() => setOpen(false)}>
+            Stack
+          </a>
           <a href="#credentials" onClick={() => setOpen(false)}>
             Credentials
           </a>
-          <a
-            className="nav-cta"
-            href={`mailto:${email}`}
-            onClick={() => setOpen(false)}
-          >
+        </nav>
+        <div className="nav-actions">
+          <ThemePicker preference={preference} setPreference={setPreference} />
+          <a className="nav-cta" href={`mailto:${email}`}>
             Get in touch <Arrow diagonal />
           </a>
-        </nav>
+        </div>
       </div>
     </header>
   );
@@ -166,8 +263,12 @@ function SystemsAtlas() {
       aria-label="Explore three kinds of data systems I work on"
     >
       <div className="atlas-topline">
-        <span>FIELD NOTES / 01—03</span>
-        <span>SELECT A SYSTEM ↓</span>
+        <span>
+          <i aria-hidden="true" /> FIELD NOTES // PRODUCTION SNAPSHOT
+        </span>
+        <span>
+          SYS STATUS <strong>OPTIMAL</strong>
+        </span>
       </div>
       <div className="atlas-select" role="group" aria-label="System type">
         {systems.map((item, index) => (
@@ -182,7 +283,7 @@ function SystemsAtlas() {
         ))}
       </div>
       <div className="atlas-content" key={system.name} aria-live="polite">
-        <p className="atlas-eyebrow">{system.eyebrow}</p>
+        <p className="atlas-eyebrow">DOMAIN: {system.eyebrow}</p>
         <div className="atlas-flow">
           {system.nodes.map(([label, title, detail], index) => (
             <div className="atlas-node" key={label}>
@@ -204,8 +305,12 @@ function Hero() {
   return (
     <section className="hero shell" id="top">
       <div className="hero-overline">
-        <span>DATA ENGINEER / APPLIED ML</span>
-        <span>HO CHI MINH CITY, VN</span>
+        <span>
+          <b>DATA ENGINEER // APPLIED ML</b> / ◇ HO CHI MINH CITY, VN
+        </span>
+        <span className="hero-status">
+          <i aria-hidden="true" /> STATUS: OPEN FOR ROLES & RESEARCH
+        </span>
       </div>
       <h1>
         <span>Nguyen</span>
@@ -217,45 +322,39 @@ function Hero() {
         <div className="hero-copy">
           <p className="hero-description">
             I build reliable data systems and evaluate machine learning for
-            real-world use.
+            real-world use. Focused on data pipelines, retrieval, and measured
+            model performance.
           </p>
           <div className="hero-actions">
             <a className="button-primary" href="#work">
-              Selected work <Arrow />
+              Explore selected work <span aria-hidden="true">↓</span>
             </a>
             <Link
               className="underlined-link"
               href="https://github.com/VietAnh1803"
             >
-              GitHub
+              GitHub profile
             </Link>
+          </div>
+          <div className="hero-stats">
+            <p>
+              <small>Current focus</small>
+              <strong>Data Eng @ OSAS</strong>
+              <span>Since Jun 2025</span>
+            </p>
+            <p>
+              <small>Education</small>
+              <strong>B.Sc. @ HCMUT</strong>
+              <span>Graduated 2026</span>
+            </p>
+            <p>
+              <small>Location</small>
+              <strong>Ho Chi Minh City</strong>
+              <span>Vietnam</span>
+            </p>
           </div>
         </div>
         <SystemsAtlas />
-      </div>
-    </section>
-  );
-}
-
-function Intro() {
-  return (
-    <section className="intro-band">
-      <div className="shell intro-grid">
-        <p>
-          Currently at <strong>OSAS</strong>
-          <br />
-          Data Engineer, since Jun 2025
-        </p>
-        <p>
-          Computer Science
-          <br />
-          <strong>HCMUT</strong>, graduated 2026
-        </p>
-        <p>
-          Based in
-          <br />
-          <strong>Ho Chi Minh City</strong>
-        </p>
       </div>
     </section>
   );
@@ -310,14 +409,25 @@ function HealthVisual() {
         ))}
       </div>
       {active === 0 && (
-        <svg
-          className="signal"
-          aria-hidden="true"
-          viewBox="0 0 640 150"
-          preserveAspectRatio="none"
-        >
-          <path d="M0 84 H86 L111 82 L128 84 L144 87 L158 51 L173 123 L192 76 L207 83 H276 L295 82 L309 84 L327 86 L342 48 L356 121 L376 77 L393 83 H469 L487 81 L504 84 L517 86 L533 53 L547 119 L567 76 L584 83 H640" />
-        </svg>
+        <div className="signal-stage" aria-hidden="true">
+          <span className="signal-stage-label">LIVE SIGNAL / ECG</span>
+          <svg
+            className="signal"
+            viewBox="0 0 640 150"
+            preserveAspectRatio="none"
+          >
+            <path
+              className="signal-baseline"
+              d="M0 84 H86 L111 82 L128 84 L144 87 L158 51 L173 123 L192 76 L207 83 H276 L295 82 L309 84 L327 86 L342 48 L356 121 L376 77 L393 83 H469 L487 81 L504 84 L517 86 L533 53 L547 119 L567 76 L584 83 H640"
+            />
+            <path
+              className="signal-live"
+              pathLength="1000"
+              d="M0 84 H86 L111 82 L128 84 L144 87 L158 51 L173 123 L192 76 L207 83 H276 L295 82 L309 84 L327 86 L342 48 L356 121 L376 77 L393 83 H469 L487 81 L504 84 L517 86 L533 53 L547 119 L567 76 L584 83 H640"
+            />
+          </svg>
+          <span className="signal-sweep" />
+        </div>
       )}
       {active > 0 && (
         <p className="analysis-label">
@@ -326,6 +436,13 @@ function HealthVisual() {
             : "Synthetic health-score regression"}
         </p>
       )}
+      <div className="health-time-axis" aria-hidden="true">
+        <span>t = 0.0s [BASE]</span>
+        <span>
+          {active === 0 ? "t = 30.0s [PEAK STRESS]" : "MEASURED RESULT"}
+        </span>
+        <span>t = 60.0s [NORMALIZED]</span>
+      </div>
       <div className="health-metrics" aria-live="polite">
         {view.metrics.map(([value, unit, label]) => (
           <div key={label}>
@@ -345,13 +462,14 @@ function HealthVisual() {
 function Work() {
   return (
     <section className="work section-pad shell" id="work">
-      <div className="section-head">
+      <div className="section-head" data-reveal>
+        <span className="section-eyebrow">// DEEP ARCHITECTURE REPOSITORY</span>
         <h2>
           Selected work<span className="period">.</span>
         </h2>
         <p>Research, engineering, and the details that connect them.</p>
       </div>
-      <article className="featured-project">
+      <article className="featured-project" data-reveal>
         <div className="feature-copy">
           <span className="project-type">Research / 2025–2026</span>
           <h3>HealthMate</h3>
@@ -376,7 +494,7 @@ function Work() {
         <HealthVisual />
       </article>
       <div className="project-grid">
-        <article className="project-panel sags-panel">
+        <article className="project-panel sags-panel" data-reveal>
           <div className="panel-meta">
             <span>Applied AI</span>
             <span>OSAS</span>
@@ -410,7 +528,7 @@ function Work() {
             <span>Ollama</span>
           </div>
         </article>
-        <article className="project-panel warehouse-panel">
+        <article className="project-panel warehouse-panel" data-reveal>
           <div className="panel-meta">
             <span>Data engineering</span>
             <span>OSAS</span>
@@ -438,8 +556,8 @@ function Work() {
           </div>
         </article>
       </div>
-      <div className="earlier-work">
-        <h3>Earlier work</h3>
+      <div className="earlier-work" data-reveal>
+        <h3>Earlier engineering projects</h3>
         <div>
           <Link href="https://github.com/HoaNguyenz/Multi_vendor_ecom">
             <span>Multi-vendor e-commerce</span>
@@ -479,7 +597,8 @@ function Experience() {
   return (
     <section className="experience section-pad" id="experience">
       <div className="shell experience-grid">
-        <div className="experience-intro">
+        <div className="experience-intro" data-reveal>
+          <span className="section-eyebrow">// RIGOROUS FOUNDATION</span>
           <h2>
             Built through
             <br />
@@ -489,10 +608,15 @@ function Experience() {
             I work across data preparation, model evaluation, and the
             applications that make results usable.
           </p>
+          <div className="competence-card">
+            <small>CORE COMPETENCE</small>
+            <strong>Production data systems & model evaluation</strong>
+            <span>Reliable, measured outcomes</span>
+          </div>
         </div>
         <div className="timeline">
           {roles.map(([date, title, place, desc]) => (
-            <article key={title}>
+            <article key={title} data-reveal>
               <time>{date}</time>
               <h3>
                 {title} <span>{place}</span>
@@ -511,23 +635,51 @@ function Toolkit() {
     [
       "Machine learning",
       "scikit-learn, CatBoost, feature engineering, LOSO / k-fold validation, model interpretation",
+      "MODEL EVAL & ML",
+      ["scikit-learn", "CatBoost", "LOSO / k-fold CV", "Feature engineering"],
     ],
     [
       "Data & retrieval",
       "Python, SQL, Pandas, PostgreSQL, pgvector, OpenSearch, Oracle, PL/SQL",
+      "STORAGE & RETRIEVAL",
+      [
+        "Python",
+        "SQL / PL-SQL",
+        "Pandas",
+        "PostgreSQL / pgvector",
+        "OpenSearch",
+        "Oracle",
+      ],
     ],
-    ["Applications", "FastAPI, Flutter, Dart, Go, Docker, GitHub Actions"],
+    [
+      "Applications & infra",
+      "FastAPI, Flutter, Dart, Go, Docker, GitHub Actions",
+      "APPS & INFRA",
+      ["FastAPI", "Flutter · Dart", "Go", "Docker", "GitHub Actions"],
+    ],
   ];
   return (
-    <section className="toolkit section-pad shell">
-      <h2>
-        Tools I use<span className="period">.</span>
-      </h2>
+    <section className="toolkit section-pad shell" id="stack">
+      <div className="section-head" data-reveal>
+        <span className="section-eyebrow">// STACK SPECIFICATION</span>
+        <h2>
+          Tools I use<span className="period">.</span>
+        </h2>
+        <p>System capabilities, from research to production.</p>
+      </div>
       <div className="toolkit-grid">
-        {groups.map(([name, tools]) => (
-          <div key={name}>
+        {groups.map(([name, description, eyebrow, tools], index) => (
+          <div key={name} data-reveal>
+            <small>
+              0{index + 1} / {eyebrow}
+            </small>
             <h3>{name}</h3>
-            <p>{tools}</p>
+            <p>{description}</p>
+            <div className="tags">
+              {tools.map((tool) => (
+                <span key={tool}>{tool}</span>
+              ))}
+            </div>
           </div>
         ))}
       </div>
@@ -539,60 +691,110 @@ function Credentials() {
   return (
     <section className="credentials section-pad" id="credentials">
       <div className="shell">
-        <div className="credentials-head">
+        <div className="credentials-head section-head" data-reveal>
+          <span className="section-eyebrow">// RIGOROUS ACCREDITATION</span>
           <h2>
             Continued learning<span className="period">.</span>
           </h2>
           <p>
-            Selected certificates, with direct verification where available.
+            {credentials.length} certificates across data engineering,
+            analytics, and design. Open any card to view its source.
           </p>
         </div>
         <div className="credential-grid">
-          {credentials.map(([title, issuer, date, image, href]) => (
-            <Link key={title} className="credential-card" href={href}>
-              <div className="credential-image">
-                <img
-                  src={`${BASE}/credentials/${image}`}
-                  alt={`${title} certificate`}
-                  loading="lazy"
-                />
+          {credentials.map(({ title, issuer, date, image, href }, index) => (
+            <Link
+              key={title}
+              className="credential-card"
+              href={href}
+              showArrow={false}
+            >
+              <div
+                className={`credential-preview ${image ? "has-image" : ""}`}
+                aria-hidden="true"
+              >
+                {image ? (
+                  <img
+                    src={`${BASE}/credentials/${image}`}
+                    alt=""
+                    loading="lazy"
+                  />
+                ) : (
+                  <>
+                    <span className="credential-preview-index">
+                      / 0{index + 1}
+                    </span>
+                    <strong>{issuer.split(" · ")[0]}</strong>
+                    <span className="credential-preview-mark">↗</span>
+                  </>
+                )}
               </div>
               <div className="credential-meta">
                 <span>{issuer}</span>
-                <span>{date}</span>
+                {date && <span>{date}</span>}
               </div>
               <h3>{title}</h3>
+              <span className="verify-link">
+                {href.endsWith(".pdf")
+                  ? "View certificate"
+                  : "Verify credential"}{" "}
+                <Arrow diagonal />
+              </span>
             </Link>
           ))}
         </div>
-        <details className="more-credentials">
-          <summary>
-            More credentials <span aria-hidden="true">+</span>
-          </summary>
-          <div className="more-list">
-            {moreCredentials.map(([name, source, href]) => (
-              <Link href={href} key={name}>
-                <span>{name}</span>
-                <small>{source}</small>
-              </Link>
-            ))}
-          </div>
-        </details>
       </div>
     </section>
   );
 }
 
 function Footer() {
+  const [copied, setCopied] = useState(false);
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(email);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2200);
+    } catch {
+      window.location.href = `mailto:${email}`;
+    }
+  };
   return (
     <footer className="footer" id="contact">
       <div className="shell">
-        <p>Have a role or research problem in mind?</p>
-        <a className="footer-cta" href={`mailto:${email}`}>
-          Get in touch <Arrow diagonal />
-        </a>
+        <div className="contact-panel" data-reveal>
+          <span className="section-eyebrow">// START A CONVERSATION</span>
+          <h2>
+            Have a role or research problem in mind?
+            <br />
+            <a href={`mailto:${email}`}>Get in touch.</a>
+          </h2>
+          <p>
+            Open to data engineering roles, applied ML collaborations, and
+            research projects in Ho Chi Minh City or remotely.
+          </p>
+          <div className="contact-actions">
+            <a className="button-primary" href={`mailto:${email}`}>
+              Send direct email <span aria-hidden="true">✉</span>
+            </a>
+            <button
+              className="copy-email"
+              type="button"
+              onClick={copyEmail}
+              aria-live="polite"
+            >
+              {copied ? "✓ Email copied" : `Copy: ${email}`}
+            </button>
+            <Link href="https://www.linkedin.com/in/anh-nguyen-viet-835081336">
+              LinkedIn profile
+            </Link>
+          </div>
+        </div>
         <div className="footer-bottom">
-          <span>© {new Date().getFullYear()} Nguyen Viet Anh</span>
+          <span>
+            © {new Date().getFullYear()} Nguyen Viet Anh <i>/</i> DATA ENG &
+            APPLIED ML
+          </span>
           <div>
             <Link href="https://www.linkedin.com/in/anh-nguyen-viet-835081336">
               LinkedIn
@@ -607,12 +809,13 @@ function Footer() {
 }
 
 export default function Portfolio() {
+  const [preference, setPreference] = useThemePreference();
+  useScrollReveal();
   return (
     <>
-      <Nav />
+      <Nav preference={preference} setPreference={setPreference} />
       <main>
         <Hero />
-        <Intro />
         <Work />
         <Experience />
         <Toolkit />
