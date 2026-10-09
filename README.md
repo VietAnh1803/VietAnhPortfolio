@@ -27,7 +27,7 @@ npm run deploy
 
 - Project descriptions and results come from the current CV and the previous portfolio. Model metrics include relevant evaluation caveats.
 - All 10 known certificates are visible in the credentials grid. IBM courses link to their Coursera verification pages; other cards open the supplied PDFs.
-- Three IBM cards show resized WebP certificate previews; the remaining cards use typographic previews.
+- Every certificate card shows its certificate preview. Four local PDFs are rendered to JPEG previews; the six IBM previews come from their Coursera verification pages.
 - The `public/.nojekyll` file keeps GitHub Pages from applying Jekyll processing to the Vite output.
 
 The site respects `prefers-reduced-motion`. No client-side routing is used, so all sections are accessible from the single project URL.

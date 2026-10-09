@@ -106,36 +106,50 @@ const credentials = [
   {
     title: "Introduction to Data Engineering",
     issuer: "IBM · Coursera",
+    date: "Aug 2026",
+    image: "ibm-intro-data-engineering.jpg",
     href: "https://www.coursera.org/verify/M1BKYHR20V6U",
   },
   {
-    title: "Introduction to Relational Databases",
+    title: "Introduction to Relational Databases (RDBMS)",
     issuer: "IBM · Coursera",
+    date: "Sep 2026",
+    image: "ibm-relational-databases.jpg",
     href: "https://www.coursera.org/verify/MQC0S2FFHCM5",
   },
   {
     title: "Python for Data Science, AI & Development",
     issuer: "IBM · Coursera",
+    date: "Sep 2026",
+    image: "ibm-python-data-science.jpg",
     href: "https://www.coursera.org/verify/F3ZLX53QOUHF",
   },
   {
     title: "Google Sheets Fundamentals",
     issuer: "DataCamp",
+    date: "Sep 2025",
+    image: "datacamp-google-sheets.jpg",
     href: `${BASE}/credentials/datacamp-google-sheets.pdf`,
   },
   {
     title: "ChatGPT Fundamentals",
     issuer: "DataCamp",
+    date: "Sep 2025",
+    image: "datacamp-chatgpt.jpg",
     href: `${BASE}/credentials/datacamp-chatgpt.pdf`,
   },
   {
     title: "Introduction to SQL",
     issuer: "SoloLearn",
+    date: "Oct 2025",
+    image: "sololearn-sql.jpg",
     href: `${BASE}/credentials/sololearn-sql.pdf`,
   },
   {
     title: "Graphic Design Essentials",
     issuer: "Canva Design School",
+    date: "Oct 2025",
+    image: "graphic-design.jpg",
     href: `${BASE}/credentials/graphic-design.pdf`,
   },
 ];
@@ -702,32 +716,19 @@ function Credentials() {
           </p>
         </div>
         <div className="credential-grid">
-          {credentials.map(({ title, issuer, date, image, href }, index) => (
+          {credentials.map(({ title, issuer, date, image, href }) => (
             <Link
               key={title}
               className="credential-card"
               href={href}
               showArrow={false}
             >
-              <div
-                className={`credential-preview ${image ? "has-image" : ""}`}
-                aria-hidden="true"
-              >
-                {image ? (
-                  <img
-                    src={`${BASE}/credentials/${image}`}
-                    alt=""
-                    loading="lazy"
-                  />
-                ) : (
-                  <>
-                    <span className="credential-preview-index">
-                      / 0{index + 1}
-                    </span>
-                    <strong>{issuer.split(" · ")[0]}</strong>
-                    <span className="credential-preview-mark">↗</span>
-                  </>
-                )}
+              <div className="credential-preview" aria-hidden="true">
+                <img
+                  src={`${BASE}/credentials/${image}`}
+                  alt=""
+                  loading="lazy"
+                />
               </div>
               <div className="credential-meta">
                 <span>{issuer}</span>

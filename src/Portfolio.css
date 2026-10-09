@@ -1096,16 +1096,8 @@ a:hover .verify-link .arrow {
 .credential-preview {
   position: relative;
   min-height: 194px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   overflow: hidden;
-  padding: 18px;
   border: 1px solid var(--line);
-  background: var(--preview-bg);
-}
-.credential-preview.has-image {
-  padding: 0;
   background: #f2f2ef;
 }
 .credential-preview img {
@@ -1116,21 +1108,6 @@ a:hover .verify-link .arrow {
 }
 .credential-card:hover .credential-preview img {
   transform: scale(1.035);
-}
-.credential-preview-index {
-  color: var(--quiet);
-  font: 600 12px/1.3 var(--mono);
-}
-.credential-preview strong {
-  max-width: 75%;
-  color: var(--accent);
-  font: 700 clamp(28px, 2.4vw, 38px)/1.1 var(--font-display);
-  letter-spacing: -0.05em;
-}
-.credential-preview-mark {
-  align-self: flex-end;
-  color: var(--accent);
-  font-size: 25px;
 }
 .credential-meta {
   display: flex;
