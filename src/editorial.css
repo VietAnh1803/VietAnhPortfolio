@@ -28,6 +28,14 @@
 html {
   scroll-behavior: smooth;
 }
+#top,
+#work,
+#experience,
+#stack,
+#credentials,
+#contact {
+  scroll-margin-top: 115px;
+}
 body {
   overflow-x: hidden;
   background: var(--bg);
@@ -131,7 +139,7 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: min(900px, 100svh);
+  min-height: max(820px, 100svh);
   padding-block: 170px 55px;
   overflow: hidden;
   isolation: isolate;
@@ -148,8 +156,7 @@ body {
   pointer-events: none;
 }
 .hero-art {
-  background: url("/data-sculpture.webp") center center / cover
-    no-repeat;
+  background: url("/data-sculpture.webp") center center / cover no-repeat;
   animation: hero-drift 16s ease-in-out infinite alternate;
   transform-origin: 66% center;
 }
