@@ -663,8 +663,62 @@ function Work() {
             <span>ODI</span>
             <span>GoldenGate</span>
           </div>
+          <a className="project-flow-jump" href="#dwh-architecture">
+            Explore the warehouse flow <span aria-hidden="true">↘</span>
+          </a>
         </article>
       </div>
+      <figure
+        className="warehouse-architecture"
+        id="dwh-architecture"
+        data-reveal
+      >
+        <figcaption className="warehouse-architecture-head">
+          <div>
+            <span className="warehouse-architecture-kicker">
+              SYSTEM BLUEPRINT / 01
+            </span>
+            <h3>Inside the insurance data warehouse</h3>
+            <p>
+              Source systems feed the operational store. ODI loads and
+              transforms the data before staging, package processing, and final
+              warehouse and error tables.
+            </p>
+          </div>
+          <a
+            href={`${BASE}/insurance-dwh-flow.png`}
+            target="_blank"
+            rel="noreferrer"
+            className="warehouse-architecture-open"
+          >
+            Open full-size diagram <span aria-hidden="true">↗</span>
+          </a>
+        </figcaption>
+        <a
+          className="warehouse-architecture-image"
+          href={`${BASE}/insurance-dwh-flow.png`}
+          target="_blank"
+          rel="noreferrer"
+          aria-label="Open the insurance data warehouse flow diagram at full size"
+        >
+          <img
+            src={`${BASE}/insurance-dwh-flow.png`}
+            alt="Insurance data warehouse flow: source systems to ODS, ODI extract and transform layers, then DWH staging, warehouse and error tables"
+            loading="lazy"
+            width="846"
+            height="318"
+          />
+        </a>
+        <span className="warehouse-architecture-mobile-hint">
+          Swipe to follow the complete flow →
+        </span>
+        <div className="warehouse-architecture-steps" aria-hidden="true">
+          <span>01 / Sources</span>
+          <span>02 / ODS</span>
+          <span>03 / ODI</span>
+          <span>04 / DWH</span>
+        </div>
+      </figure>
       <div className="earlier-work" data-reveal>
         <h3>More projects</h3>
         <p>
@@ -743,7 +797,13 @@ function Experience() {
           {roles.map(([date, title, place, desc]) => (
             <article key={title} data-reveal>
               {title === "Data Engineer" && (
-                <div className="company-mark">
+                <a
+                  className="company-mark"
+                  href="https://orasas.com/"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Visit the OSAS company website"
+                >
                   <img
                     src={`${BASE}/osas-logo.png`}
                     alt="OSAS company logo — Your success our values"
@@ -751,7 +811,7 @@ function Experience() {
                     height="73"
                     loading="lazy"
                   />
-                </div>
+                </a>
               )}
               <time>{date}</time>
               <h3>
@@ -770,17 +830,22 @@ function Toolkit() {
   const featured = [
     { name: "Python", icon: "python", area: "Pipelines & analysis" },
     { name: "Apache Kafka", icon: "apachekafka", area: "Streaming data" },
-    { name: "Oracle Database", icon: "oracle", area: "Warehouse & SQL" },
+    {
+      name: "Oracle Database",
+      icon: "oracle-database.png",
+      productLogo: true,
+      area: "Warehouse & SQL",
+    },
     {
       name: "Oracle Data Integrator",
-      icon: "oracle",
-      code: "ODI",
+      icon: "oracle-data-integrator.png",
+      productLogo: true,
       area: "ETL / ELT",
     },
     {
       name: "Oracle GoldenGate",
-      icon: "oracle",
-      code: "OGG",
+      icon: "oracle-goldengate.png",
+      productLogo: true,
       area: "Change capture",
     },
     { name: "PostgreSQL", icon: "postgresql", area: "Retrieval storage" },
@@ -830,22 +895,23 @@ function Toolkit() {
         <p>System capabilities, from research to production.</p>
       </div>
       <div className="tech-gallery" aria-label="Featured technology stack">
-        {featured.map(({ name, icon, code, area }, index) => (
+        {featured.map(({ name, icon, productLogo, area }, index) => (
           <div
             className="tech-card"
             key={name}
             data-reveal
             style={{ "--reveal-delay": `${(index % 4) * 80}ms` }}
           >
-            <div className="tech-logo-stage">
+            <div
+              className={`tech-logo-stage${productLogo ? " tech-logo-stage-product" : ""}${name === "Oracle GoldenGate" ? " tech-logo-stage-goldengate" : ""}`}
+            >
               <img
-                src={`${BASE}/tech-icons/${icon}.svg`}
+                src={`${BASE}/tech-icons/${productLogo ? icon : `${icon}.svg`}`}
                 alt=""
                 width="94"
                 height="94"
                 loading="lazy"
               />
-              {code && <span className="tech-product-code">{code}</span>}
             </div>
             <span className="tech-card-index">0{index + 1} / STACK</span>
             <h3>{name}</h3>
@@ -853,9 +919,6 @@ function Toolkit() {
           </div>
         ))}
       </div>
-      <p className="tech-gallery-note">
-        ODI and GoldenGate are Oracle products; their cards use the Oracle mark.
-      </p>
       <div className="toolkit-grid">
         {groups.map(([name, description, eyebrow, tools], index) => (
           <div key={name} data-reveal>
