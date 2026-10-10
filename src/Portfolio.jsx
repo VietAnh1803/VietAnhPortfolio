@@ -3,44 +3,6 @@ import { useEffect, useState } from "react";
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const email = "nguyenvietanh1803.hcmut@gmail.com";
 const external = { target: "_blank", rel: "noopener noreferrer" };
-const THEME_KEY = "nva-theme";
-
-function useThemePreference() {
-  const [preference, setPreference] = useState(() => {
-    try {
-      const saved = window.localStorage.getItem(THEME_KEY);
-      return ["system", "dark", "light"].includes(saved) ? saved : "system";
-    } catch {
-      return "system";
-    }
-  });
-
-  useEffect(() => {
-    const media = window.matchMedia("(prefers-color-scheme: dark)");
-    const applyTheme = () => {
-      const resolved =
-        preference === "system"
-          ? media.matches
-            ? "dark"
-            : "light"
-          : preference;
-      document.documentElement.dataset.theme = resolved;
-      document
-        .querySelector('meta[name="theme-color"]')
-        ?.setAttribute("content", resolved === "dark" ? "#090a0f" : "#f8f7f5");
-    };
-    applyTheme();
-    media.addEventListener("change", applyTheme);
-    try {
-      window.localStorage.setItem(THEME_KEY, preference);
-    } catch {
-      // The theme still works if storage is disabled.
-    }
-    return () => media.removeEventListener("change", applyTheme);
-  }, [preference]);
-
-  return [preference, setPreference];
-}
 
 function useScrollReveal() {
   useEffect(() => {
@@ -154,29 +116,7 @@ const credentials = [
   },
 ];
 
-function ThemePicker({ preference, setPreference }) {
-  return (
-    <div className="theme-picker" role="group" aria-label="Color theme">
-      {[
-        ["system", "OS"],
-        ["light", "Light"],
-        ["dark", "Dark"],
-      ].map(([value, label]) => (
-        <button
-          key={value}
-          type="button"
-          aria-label={`${label} theme`}
-          aria-pressed={preference === value}
-          onClick={() => setPreference(value)}
-        >
-          {label}
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function Nav({ preference, setPreference }) {
+function Nav() {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header">
@@ -187,11 +127,8 @@ function Nav({ preference, setPreference }) {
             href="#top"
             aria-label="Nguyen Viet Anh, back to top"
           >
-            NVA<span>.</span>
+            Nguyen Viet Anh<span>.</span>
           </a>
-          <span className="availability">
-            <i aria-hidden="true" /> Available for work
-          </span>
         </div>
         <button
           className="menu-button"
@@ -223,9 +160,8 @@ function Nav({ preference, setPreference }) {
           </a>
         </nav>
         <div className="nav-actions">
-          <ThemePicker preference={preference} setPreference={setPreference} />
           <a className="nav-cta" href={`mailto:${email}`}>
-            Get in touch <Arrow diagonal />
+            Let&apos;s talk <Arrow diagonal />
           </a>
         </div>
       </div>
@@ -317,58 +253,41 @@ function SystemsAtlas() {
 
 function Hero() {
   return (
-    <section className="hero shell" id="top">
-      <div className="hero-overline">
-        <span>
-          <b>DATA ENGINEER // APPLIED ML</b> / ◇ HO CHI MINH CITY, VN
+    <section className="hero" id="top">
+      <div
+        className="hero-art"
+        role="img"
+        aria-label="Abstract flowing glass structure representing connected data"
+      />
+      <div className="hero-shade" aria-hidden="true" />
+      <div className="shell hero-content">
+        <span className="hero-eyebrow">
+          Portfolio / Data engineering & applied ML
         </span>
-        <span className="hero-status">
-          <i aria-hidden="true" /> STATUS: OPEN FOR ROLES & RESEARCH
-        </span>
-      </div>
-      <h1>
-        <span>Nguyen</span>
-        <strong>
-          Viet Anh<span className="hero-period">.</span>
-        </strong>
-      </h1>
-      <div className="hero-lower">
-        <div className="hero-copy">
-          <p className="hero-description">
-            I build reliable data systems and evaluate machine learning for
-            real-world use. Focused on data pipelines, retrieval, and measured
-            model performance.
-          </p>
-          <div className="hero-actions">
-            <a className="button-primary" href="#work">
-              Explore selected work <span aria-hidden="true">↓</span>
-            </a>
-            <Link
-              className="underlined-link"
-              href="https://github.com/VietAnh1803"
-            >
-              GitHub profile
-            </Link>
-          </div>
-          <div className="hero-stats">
-            <p>
-              <small>Current focus</small>
-              <strong>Data Eng @ OSAS Joint Stock Company via AI-MED</strong>
-              <span>Since Jun 2025</span>
-            </p>
-            <p>
-              <small>Education</small>
-              <strong>B.Sc. @ HCMUT</strong>
-              <span>Graduated 2026</span>
-            </p>
-            <p>
-              <small>Location</small>
-              <strong>Ho Chi Minh City</strong>
-              <span>Vietnam</span>
-            </p>
-          </div>
+        <h1>
+          Engineering
+          <br />
+          <em>clarity.</em>
+        </h1>
+        <p className="hero-description">
+          I&apos;m Nguyen Viet Anh. I build reliable data systems and evaluate
+          machine learning for real-world use—from warehouse pipelines to cited
+          answers and measured model performance.
+        </p>
+        <div className="hero-actions">
+          <a className="button-primary" href="#work">
+            Explore selected work <span aria-hidden="true">↗</span>
+          </a>
+          <a className="hero-text-link" href="#experience">
+            The story behind the work <span aria-hidden="true">↘</span>
+          </a>
         </div>
-        <SystemsAtlas />
+      </div>
+      <div className="shell hero-bottom">
+        <span>Ho Chi Minh City, Vietnam</span>
+        <span>
+          Scroll to explore <span aria-hidden="true">↓</span>
+        </span>
       </div>
     </section>
   );
@@ -821,15 +740,27 @@ function Footer() {
 }
 
 export default function Portfolio() {
-  const [preference, setPreference] = useThemePreference();
   useScrollReveal();
   return (
     <>
-      <Nav preference={preference} setPreference={setPreference} />
+      <Nav />
       <main>
         <Hero />
         <Work />
         <Experience />
+        <section
+          className="approach section-pad shell"
+          aria-labelledby="approach-heading"
+        >
+          <div className="section-head" data-reveal>
+            <span className="section-eyebrow">The method</span>
+            <h2 id="approach-heading">
+              From signal to <em>meaning.</em>
+            </h2>
+            <p>Three connected disciplines behind the work.</p>
+          </div>
+          <SystemsAtlas />
+        </section>
         <Toolkit />
         <Credentials />
       </main>
