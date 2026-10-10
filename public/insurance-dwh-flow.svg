@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1692" height="636" viewBox="0 0 846 318" role="img" aria-labelledby="title description">
+  <title id="title">Insurance data warehouse architecture</title>
+  <desc id="description">Seven source systems flow into ODS tables and files, then through Oracle Data Integrator LKM and IKM processes into staging tables, a package, a warehouse table, and an error table.</desc>
+  <defs>
+    <style>
+      text { font-family: Arial, Helvetica, sans-serif; fill: #252525; }
+      .section { font-size: 9px; font-weight: 700; fill: #1262a2; }
+      .label { font-size: 8px; }
+      .small { font-size: 7px; }
+      .tiny { font-size: 6px; }
+      .center { text-anchor: middle; }
+      .main-line { fill: none; stroke: #171717; stroke-width: 1; marker-end: url(#arrow-black); }
+      .blue-line { fill: none; stroke: #1760bd; stroke-width: 1.2; marker-end: url(#arrow-blue); }
+      .red-line { fill: none; stroke: #d3342c; stroke-width: 1.2; marker-end: url(#arrow-red); }
+      .box { fill: #fff0cb; stroke: #d4cdb2; stroke-width: 1; }
+    </style>
+    <marker id="arrow-black" markerWidth="5" markerHeight="5" refX="4.4" refY="2.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 5 2.5 0 5z" fill="#171717"/></marker>
+    <marker id="arrow-blue" markerWidth="5" markerHeight="5" refX="4.4" refY="2.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 5 2.5 0 5z" fill="#1760bd"/></marker>
+    <marker id="arrow-red" markerWidth="5" markerHeight="5" refX="4.4" refY="2.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 5 2.5 0 5z" fill="#d3342c"/></marker>
+    <g id="source-cylinder" fill="#fee9c8" stroke="#f5ad34" stroke-width="1.1">
+      <path d="M0 11v29c0 6 8.5 10.5 20 10.5S40 46 40 40V11"/>
+      <ellipse cx="20" cy="11" rx="20" ry="10.5"/>
+    </g>
+    <g id="table-icon" fill="#fffdf0" stroke="#73918d" stroke-width=".6">
+      <rect x="0" y="0" width="20" height="20"/>
+      <path d="M4 0v20M8 0v20M12 0v20M16 0v20M0 4h20M0 8h20M0 12h20M0 16h20" fill="none"/>
+    </g>
+  </defs>
+
+  <rect width="846" height="318" fill="#fff"/>
+
+  <!-- Four original lanes, with the ODI and DWH working areas inside them. -->
+  <rect x="13" y="14" width="147" height="298" rx="23" fill="#e9e9e9"/>
+  <rect x="190" y="15" width="112" height="262" rx="20" fill="#e9e9e9"/>
+  <rect x="331" y="15" width="155" height="263" rx="22" fill="#e9e9e9"/>
+  <rect x="337" y="49" width="141" height="214" rx="23" fill="#deeadc" stroke="#b8d4ad" stroke-width="1.1"/>
+  <rect x="515" y="15" width="317" height="297" rx="27" fill="#e9e9e9"/>
+  <rect x="522" y="49" width="297" height="249" rx="29" fill="#e0eadf" stroke="#b6d3ae" stroke-width="1.1"/>
+  <rect x="535" y="64" width="139" height="115" rx="15" fill="#f1deda" stroke="#d8aaa0" stroke-width="1.1"/>
+
+  <text class="section center" x="87" y="45">SOURCES</text>
+  <text class="section center" x="246" y="45">ODS</text>
+  <text class="section center" x="408" y="45">ODI</text>
+  <text class="section center" x="683" y="40">DWH</text>
+  <text class="label center" x="408" y="64">EE Agent</text>
+  <text class="label center" x="604" y="87">Staging Area</text>
+  <text class="label center" x="672" y="288">DWH Area</text>
+
+  <!-- Source systems. -->
+  <use href="#source-cylinder" x="28" y="64"/><text class="label center" x="48" y="102">GICCORE</text>
+  <use href="#source-cylinder" x="93" y="64"/><text class="label center" x="113" y="102">PP</text>
+  <use href="#source-cylinder" x="28" y="124"/><text class="label center" x="48" y="162">IBMS</text>
+  <use href="#source-cylinder" x="93" y="124"/><text class="label center" x="113" y="162">DATAHUB</text>
+  <use href="#source-cylinder" x="28" y="187"/><text class="label center" x="48" y="225">eCERT</text>
+  <use href="#source-cylinder" x="93" y="187"/><text class="label center" x="113" y="225">SunGL</text>
+  <use href="#source-cylinder" x="62" y="247"/><text class="label center" x="82" y="285">HOMEX</text>
+
+  <!-- ODS tables and files. -->
+  <rect class="box" x="206" y="84" width="79" height="29" rx="4"/>
+  <use href="#table-icon" x="216" y="89"/>
+  <text class="label center" x="261" y="102">Table</text>
+  <rect class="box" x="206" y="145" width="79" height="29" rx="4"/>
+  <rect x="215" y="149" width="12" height="20" rx="1" fill="#c8c5ad"/>
+  <rect x="218" y="152" width="8" height="6" fill="#8c8d84"/>
+  <rect x="223" y="159" width="16" height="10" fill="#b0afa0"/>
+  <rect x="228" y="164" width="11" height="5" fill="#969687"/>
+  <text class="label center" x="261" y="163">File</text>
+
+  <!-- ODI extract and integration modules. -->
+  <rect class="box" x="351" y="79" width="112" height="42" rx="5"/>
+  <text class="label center" x="407" y="96" font-weight="700">LKM</text>
+  <text class="small center" x="407" y="111">Extract/Join/Transform</text>
+  <rect class="box" x="351" y="139" width="112" height="42" rx="5"/>
+  <text class="label center" x="407" y="156" font-weight="700">LKM</text>
+  <text class="small center" x="407" y="171">Extract/Transform</text>
+  <rect class="box" x="351" y="198" width="112" height="42" rx="5"/>
+  <text class="label center" x="407" y="215" font-weight="700">IKM</text>
+  <text class="small center" x="407" y="230">Transform/Integrate</text>
+
+  <!-- Warehouse staging, package, final table and error table. -->
+  <rect class="box" x="556" y="97" width="87" height="29" rx="4"/>
+  <use href="#table-icon" x="566" y="102"/>
+  <text class="label center" x="615" y="115">STA Table</text>
+  <rect class="box" x="556" y="135" width="87" height="29" rx="4"/>
+  <use href="#table-icon" x="566" y="140"/>
+  <text class="label center" x="615" y="153">STA Table</text>
+  <rect class="box" x="556" y="205" width="87" height="28" rx="4"/>
+  <rect x="560" y="209" width="31" height="21" rx="1" fill="#fffdf0" stroke="#c6bfa3" stroke-width=".8"/>
+  <rect x="563" y="211" width="25" height="8" fill="#eeeadd" stroke="#c6bfa3" stroke-width=".5"/>
+  <text class="tiny center" x="576" y="227" font-weight="700">package</text>
+  <text class="label center" x="617" y="224">Package</text>
+  <rect class="box" x="702" y="186" width="86" height="29" rx="4"/>
+  <use href="#table-icon" x="712" y="191"/>
+  <text class="label center" x="763" y="204">DWH Table</text>
+  <rect class="box" x="702" y="231" width="86" height="29" rx="4"/>
+  <use href="#table-icon" x="712" y="236"/>
+  <text class="label center" x="762" y="249">Error Table</text>
+
+  <!-- Source-to-ODS, ODS-to-ODI and ODI-to-staging paths. -->
+  <path class="main-line" d="M160 99H194"/>
+  <text class="small center" x="176" y="103">(1,0)</text>
+  <path class="main-line" d="M285 99H335"/>
+  <text class="small center" x="310" y="103">(1,1)</text>
+  <path class="main-line" d="M285 160H335"/>
+  <text class="small center" x="310" y="164">(1,2)</text>
+  <path class="main-line" d="M463 100H535"/>
+  <text class="small center" x="501" y="104">(2,1)</text>
+  <path class="main-line" d="M463 160H535"/>
+  <text class="small center" x="501" y="164">(2,2)</text>
+
+  <!-- Integration, package, merge and error handling. -->
+  <path class="blue-line" d="M463 220H556"/>
+  <text class="small center" x="511" y="216">(3)</text>
+  <path class="blue-line" d="M600 205V177"/>
+  <text class="small" x="605" y="195">(4)</text>
+  <path class="blue-line" d="M643 219H677V200H702"/>
+  <text class="small center" x="676" y="205">(5)</text>
+  <text class="label center" x="676" y="190">Merge</text>
+  <path class="red-line" d="M643 227H673V245H702"/>
+  <text class="small center" x="677" y="243">(6)</text>
+  <text class="label center" x="677" y="258">Errors</text>
+</svg>

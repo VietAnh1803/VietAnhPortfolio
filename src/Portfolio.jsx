@@ -686,7 +686,7 @@ function Work() {
             </p>
           </div>
           <a
-            href={`${BASE}/insurance-dwh-flow.png`}
+            href={`${BASE}/insurance-dwh-flow.svg`}
             target="_blank"
             rel="noreferrer"
             className="warehouse-architecture-open"
@@ -696,17 +696,17 @@ function Work() {
         </figcaption>
         <a
           className="warehouse-architecture-image"
-          href={`${BASE}/insurance-dwh-flow.png`}
+          href={`${BASE}/insurance-dwh-flow.svg`}
           target="_blank"
           rel="noreferrer"
           aria-label="Open the insurance data warehouse flow diagram at full size"
         >
           <img
-            src={`${BASE}/insurance-dwh-flow.png`}
+            src={`${BASE}/insurance-dwh-flow.svg`}
             alt="Insurance data warehouse flow: source systems to ODS, ODI extract and transform layers, then DWH staging, warehouse and error tables"
             loading="lazy"
-            width="846"
-            height="318"
+            width="1692"
+            height="636"
           />
         </a>
         <span className="warehouse-architecture-mobile-hint">
