@@ -238,6 +238,7 @@ function Nav({ theme, setTheme }) {
 
 const systems = [
   {
+    key: "warehouse",
     name: "Warehouse",
     eyebrow: "01 / DATA ENGINEERING",
     nodes: [
@@ -245,9 +246,14 @@ const systems = [
       ["Process", "Load & reconcile", "ODI · PL/SQL"],
       ["Outcome", "Trustworthy counts", "82 → 1 corrected in one case"],
     ],
+    result: "82 → 1",
+    resultLabel: "Policy count reconciled",
+    resultDetail:
+      "One customer case, traced from source records to the warehouse result.",
     footnote: "Also corrected sales-channel classifications across ~68k rows.",
   },
   {
+    key: "retrieval",
     name: "Retrieval",
     eyebrow: "02 / APPLIED AI",
     nodes: [
@@ -255,10 +261,15 @@ const systems = [
       ["Process", "Hybrid retrieval", "SQL · pgvector · OpenSearch"],
       ["Outcome", "Cited answers", "Source-page references"],
     ],
+    result: "CITED",
+    resultLabel: "Answers with a trail back",
+    resultDetail:
+      "Report figures and heading-aware chunks remain linked to source pages.",
     footnote:
       "A report pipeline built at OSAS Joint Stock Company via AI-MED, from figures and heading chunks to answers.",
   },
   {
+    key: "evaluation",
     name: "Evaluation",
     eyebrow: "03 / RESEARCH",
     nodes: [
@@ -266,10 +277,85 @@ const systems = [
       ["Process", "LOSO validation", "869 windows"],
       ["Outcome", "93.8% accuracy", "Mean · full-record normalization"],
     ],
+    result: "93.8%",
+    resultLabel: "Mean stress-model accuracy",
+    resultDetail:
+      "WESAD · 15 participants · 869 windows · leave-one-subject-out validation.",
     footnote:
       "HealthMate stress-model result; resting-only calibration remains to be validated.",
   },
 ];
+
+function AtlasGlyph({ system, stage }) {
+  let drawing;
+  if (system === "warehouse") {
+    drawing = [
+      <>
+        <ellipse cx="50" cy="28" rx="29" ry="10" />
+        <path d="M21 28v39c0 6 13 11 29 11s29-5 29-11V28M21 48c0 6 13 11 29 11s29-5 29-11" />
+        <path d="M21 67c0 6 13 11 29 11s29-5 29-11" />
+      </>,
+      <>
+        <path d="M18 24h24v18H18zM58 24h24v18H58zM38 63h24v18H38z" />
+        <path d="M30 42v11h20M70 42v11H50v10" />
+        <circle cx="50" cy="53" r="4" />
+      </>,
+      <>
+        <circle cx="50" cy="50" r="31" />
+        <circle cx="50" cy="50" r="22" />
+        <path d="m37 51 9 9 18-21" />
+      </>,
+    ][stage];
+  } else if (system === "retrieval") {
+    drawing = [
+      <>
+        <path d="M25 21h40l11 11v48H25zM65 21v12h11M33 45h34M33 54h34M33 63h22" />
+        <path d="M18 31v56h45" />
+      </>,
+      <>
+        <circle cx="45" cy="44" r="21" />
+        <path d="m61 60 18 18M34 45h22M45 34v22" />
+        <circle cx="18" cy="20" r="3" />
+        <circle cx="80" cy="24" r="3" />
+      </>,
+      <>
+        <path d="M25 20h50v60H25zM35 34h30M35 44h25M35 54h31" />
+        <path d="M35 67h19" />
+        <circle cx="70" cy="68" r="10" />
+        <path d="m67 68 2 2 5-5" />
+      </>,
+    ][stage];
+  } else {
+    drawing = [
+      <>
+        <path d="M12 51h19l9-19 12 37 10-25 7 7h19" />
+        <path d="M16 22v-5h68v5M16 78v5h68v-5" />
+      </>,
+      <>
+        <path d="M18 28h18v44H18zM41 28h18v44H41zM64 28h18v44H64z" />
+        <path d="M27 39v22M50 39v22M73 39v22" />
+      </>,
+      <>
+        <circle cx="50" cy="50" r="31" />
+        <path d="M29 58a24 24 0 0 1 42 0M50 51l14-12" />
+        <circle cx="50" cy="51" r="4" />
+      </>,
+    ][stage];
+  }
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {drawing}
+    </svg>
+  );
+}
 
 function SystemsAtlas() {
   const [active, setActive] = useState(0);
@@ -277,15 +363,14 @@ function SystemsAtlas() {
   return (
     <div
       className="systems-atlas"
+      data-system={system.key}
       aria-label="Explore three kinds of data systems I work on"
     >
       <div className="atlas-topline">
         <span>
-          <i aria-hidden="true" /> FIELD NOTES // PRODUCTION SNAPSHOT
+          <i aria-hidden="true" /> SYSTEMS IN PRACTICE // INTERACTIVE MAP
         </span>
-        <span>
-          SYS STATUS <strong>OPTIMAL</strong>
-        </span>
+        <span>THREE WORKFLOWS / ONE METHOD</span>
       </div>
       <div className="atlas-select" role="group" aria-label="System type">
         {systems.map((item, index) => (
@@ -300,19 +385,45 @@ function SystemsAtlas() {
         ))}
       </div>
       <div className="atlas-content" key={system.name} aria-live="polite">
-        <p className="atlas-eyebrow">DOMAIN: {system.eyebrow}</p>
-        <div className="atlas-flow">
-          {system.nodes.map(([label, title, detail], index) => (
-            <div className="atlas-node" key={label}>
-              <small>
-                {label} / 0{index + 1}
-              </small>
-              <strong>{title}</strong>
-              <span>{detail}</span>
+        <div className="atlas-story">
+          <div className="atlas-visual">
+            <div className="atlas-visual-header">
+              <span>FLOW / {system.eyebrow}</span>
+              <span>INPUT → OUTPUT</span>
             </div>
-          ))}
+            <div className="atlas-visual-grid">
+              {system.nodes.map(([label, title, detail], index) => (
+                <div className="atlas-station" key={label}>
+                  <div className="atlas-glyph">
+                    <AtlasGlyph system={system.key} stage={index} />
+                  </div>
+                  <small>
+                    0{index + 1} / {label}
+                  </small>
+                  <strong>{title}</strong>
+                  <span>{detail}</span>
+                </div>
+              ))}
+            </div>
+            <div className="atlas-visual-footer">
+              <span>TRACE THE TRANSFORMATION</span>
+              <span aria-hidden="true">↗</span>
+            </div>
+          </div>
+          <div className="atlas-result">
+            <span className="atlas-result-kicker">RESULT / 0{active + 1}</span>
+            <strong className="atlas-result-value">{system.result}</strong>
+            <h3>{system.resultLabel}</h3>
+            <p>{system.resultDetail}</p>
+            <span className="atlas-result-mark" aria-hidden="true">
+              ↗
+            </span>
+          </div>
         </div>
-        <p className="atlas-footnote">{system.footnote}</p>
+        <p className="atlas-footnote">
+          <span>NOTE</span>
+          {system.footnote}
+        </p>
       </div>
     </div>
   );
