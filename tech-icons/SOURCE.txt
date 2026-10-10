@@ -7,3 +7,6 @@ flutter, and apachespark original SVG icons.
 
 The Devicon MIT license is included as LICENSE.devicon.txt.
 Product names and logos identify the technologies used; they do not imply endorsement.
+
+The PNG logos for Oracle Database, Oracle Data Integrator, and Oracle
+GoldenGate were supplied by the portfolio owner for this portfolio.
