@@ -253,7 +253,7 @@ const systems = [
       ["Outcome", "Cited answers", "Source-page references"],
     ],
     footnote:
-      "A report pipeline built at OSAS, from figures and heading chunks to answers.",
+      "A report pipeline built at OSAS Joint Stock Company via AI-MED, from figures and heading chunks to answers.",
   },
   {
     name: "Evaluation",
@@ -353,7 +353,7 @@ function Hero() {
           <div className="hero-stats">
             <p>
               <small>Current focus</small>
-              <strong>Data Eng @ OSAS</strong>
+              <strong>Data Eng @ OSAS Joint Stock Company via AI-MED</strong>
               <span>Since Jun 2025</span>
             </p>
             <p>
@@ -511,7 +511,7 @@ function Work() {
         <article className="project-panel sags-panel" data-reveal>
           <div className="panel-meta">
             <span>Applied AI</span>
-            <span>OSAS</span>
+            <span>OSAS Joint Stock Company via AI-MED</span>
           </div>
           <div
             className="sags-visual"
@@ -545,7 +545,7 @@ function Work() {
         <article className="project-panel warehouse-panel" data-reveal>
           <div className="panel-meta">
             <span>Data engineering</span>
-            <span>OSAS</span>
+            <span>OSAS Joint Stock Company via AI-MED</span>
           </div>
           <div
             className="warehouse-visual"
@@ -592,7 +592,7 @@ function Experience() {
     [
       "Jun 2025 – Present",
       "Data Engineer",
-      "at OSAS",
+      "at OSAS Joint Stock Company via AI-MED",
       "Developing warehouse loads, search, and retrieval pipelines for financial and insurance data.",
     ],
     [

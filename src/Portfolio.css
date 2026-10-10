@@ -817,6 +817,8 @@ a:hover .verify-link .arrow {
 }
 .panel-meta span:last-child {
   color: var(--quiet);
+  max-width: 62%;
+  text-align: right;
 }
 .project-panel h3 {
   margin: 14px 0 9px;
