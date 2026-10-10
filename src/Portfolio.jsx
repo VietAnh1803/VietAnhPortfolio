@@ -631,6 +631,17 @@ function Experience() {
         <div className="timeline">
           {roles.map(([date, title, place, desc]) => (
             <article key={title} data-reveal>
+              {title === "Data Engineer" && (
+                <div className="company-mark">
+                  <img
+                    src={`${BASE}/osas-logo.png`}
+                    alt="OSAS company logo — Your success our values"
+                    width="150"
+                    height="73"
+                    loading="lazy"
+                  />
+                </div>
+              )}
               <time>{date}</time>
               <h3>
                 {title} <span>{place}</span>

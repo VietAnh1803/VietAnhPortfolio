@@ -996,6 +996,19 @@ a:hover .verify-link .arrow {
   padding: 0 0 33px 31px;
   border-left: 1px solid var(--line);
 }
+.company-mark {
+  display: table;
+  margin-bottom: 16px;
+  padding: 12px 14px;
+  border: 1px solid #34465c;
+  border-radius: 8px;
+  background: #0d1117;
+}
+.company-mark img {
+  display: block;
+  width: 150px;
+  height: auto;
+}
 .timeline article:last-child {
   border-left-color: transparent;
   padding-bottom: 0;
