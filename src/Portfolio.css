@@ -913,9 +913,15 @@ a:hover .verify-link .arrow {
   margin-top: 70px;
 }
 .earlier-work h3 {
-  margin: 0 0 12px;
+  margin: 0 0 6px;
   font-size: 24px;
   letter-spacing: -0.04em;
+}
+.earlier-work > p {
+  margin: 0 0 22px;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.6;
 }
 .earlier-work > div {
   border-top: 1px solid var(--line);

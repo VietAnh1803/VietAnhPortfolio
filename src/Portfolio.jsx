@@ -555,8 +555,24 @@ function Work() {
         </article>
       </div>
       <div className="earlier-work" data-reveal>
-        <h3>Earlier engineering projects</h3>
+        <h3>More projects</h3>
+        <p>
+          Public code across streaming data, machine learning, analysis, and
+          apps.
+        </p>
         <div>
+          <Link href="https://github.com/VietAnh1803/Big-data-vnstock-pipeline">
+            <span>Vietnam stock data pipeline</span>
+            <small>Personal · Kafka / Spark / Snowflake · 2025–26</small>
+          </Link>
+          <Link href="https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline">
+            <span>Adult income ML pipeline</span>
+            <small>Team coursework · Model comparison · 2026</small>
+          </Link>
+          <Link href="https://github.com/VietAnh1803/Data-Visualization-AI-Impact">
+            <span>AI impact data dashboard</span>
+            <small>EDA · Python / interactive HTML · 2025–26</small>
+          </Link>
           <Link href="https://github.com/HoaNguyenz/Multi_vendor_ecom">
             <span>Multi-vendor e-commerce</span>
             <small>Frontend · React / Tailwind · 2024</small>
