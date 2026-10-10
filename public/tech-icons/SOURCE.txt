@@ -1,0 +1,9 @@
+Technology SVGs in this directory come from Devicon:
+https://github.com/devicons/devicon
+
+Source revision: 7330accdbc47e2dc0c19789a48533c4a3c50fe58
+Files: python, apachekafka, oracle, postgresql, docker, fastapi,
+flutter, and apachespark original SVG icons.
+
+The Devicon MIT license is included as LICENSE.devicon.txt.
+Product names and logos identify the technologies used; they do not imply endorsement.

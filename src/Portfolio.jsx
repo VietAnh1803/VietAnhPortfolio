@@ -3,6 +3,27 @@ import { useEffect, useState } from "react";
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const email = "nguyenvietanh1803.hcmut@gmail.com";
 const external = { target: "_blank", rel: "noopener noreferrer" };
+const THEME_KEY = "nva-theme";
+
+function useTheme() {
+  const [theme, setTheme] = useState(() =>
+    document.documentElement.dataset.theme === "light" ? "light" : "dark",
+  );
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+    document
+      .querySelector('meta[name="theme-color"]')
+      ?.setAttribute("content", theme === "light" ? "#f4f2ec" : "#090a09");
+    try {
+      window.localStorage.setItem(THEME_KEY, theme);
+    } catch {
+      // Theme selection still works when storage is unavailable.
+    }
+  }, [theme]);
+
+  return [theme, setTheme];
+}
 
 function useScrollReveal() {
   useEffect(() => {
@@ -31,13 +52,47 @@ function useScrollReveal() {
     };
   }, []);
 }
+
+function useScrollMotion() {
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    let frame = 0;
+    const update = () => {
+      const offset = Math.min(window.scrollY * 0.16, 130);
+      document.documentElement.style.setProperty(
+        "--hero-scroll",
+        `${offset}px`,
+      );
+      document
+        .querySelector(".site-header")
+        ?.classList.toggle("is-scrolled", window.scrollY > 40);
+      frame = 0;
+    };
+    const onScroll = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      if (frame) window.cancelAnimationFrame(frame);
+      document.documentElement.style.removeProperty("--hero-scroll");
+    };
+  }, []);
+}
 const Arrow = ({ diagonal = false }) => (
   <span aria-hidden="true" className="arrow">
     {diagonal ? "↗" : "→"}
   </span>
 );
-const Link = ({ href, children, className = "", showArrow = true }) => (
-  <a href={href} className={className} {...external}>
+const Link = ({
+  href,
+  children,
+  className = "",
+  showArrow = true,
+  ...props
+}) => (
+  <a href={href} className={className} {...external} {...props}>
     {children}
     {showArrow && <Arrow diagonal />}
   </a>
@@ -116,7 +171,7 @@ const credentials = [
   },
 ];
 
-function Nav() {
+function Nav({ theme, setTheme }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="site-header">
@@ -160,6 +215,18 @@ function Nav() {
           </a>
         </nav>
         <div className="nav-actions">
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
+            aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+            title={`Switch to ${theme === "dark" ? "light" : "dark"} theme`}
+          >
+            <span aria-hidden="true">{theme === "dark" ? "☀" : "☾"}</span>
+            <span className="theme-toggle-label">
+              {theme === "dark" ? "Light" : "Dark"}
+            </span>
+          </button>
           <a className="nav-cta" href={`mailto:${email}`}>
             Let&apos;s talk <Arrow diagonal />
           </a>
@@ -432,22 +499,17 @@ function Work() {
             <span>Applied AI</span>
             <span>OSAS Joint Stock Company via AI-MED</span>
           </div>
-          <div
-            className="sags-visual"
-            role="img"
-            aria-label="Report processing: source reports, heading-based chunks, SQL and pgvector retrieval, cited answers"
-          >
-            {[
-              "Reports",
-              "Heading chunks",
-              "SQL + pgvector",
-              "Cited answers",
-            ].map((step, index) => (
-              <div className="pipeline-step" key={step}>
-                <small>0{index + 1}</small>
-                <strong>{step}</strong>
-              </div>
-            ))}
+          <div className="project-art project-art-retrieval">
+            <img
+              src={`${BASE}/retrieval-art.webp`}
+              alt="Conceptual illustration of layered reports linked by retrieval paths"
+              loading="lazy"
+              width="1536"
+              height="1024"
+            />
+            <span className="project-art-label">
+              Reports → Retrieval → Cited answers
+            </span>
           </div>
           <h3>Financial Statement Assistant</h3>
           <p>
@@ -466,14 +528,17 @@ function Work() {
             <span>Data engineering</span>
             <span>OSAS Joint Stock Company via AI-MED</span>
           </div>
-          <div
-            className="warehouse-visual"
-            aria-label="Reconciliation corrected one customer's policy count from 82 to 1"
-          >
-            <span className="old-count">82</span>
-            <span className="count-arrow">→</span>
-            <span className="new-count">1</span>
-            <small>policies / one customer</small>
+          <div className="project-art project-art-warehouse">
+            <img
+              src={`${BASE}/warehouse-art.webp`}
+              alt="Conceptual illustration of aligned data blocks in a warehouse pipeline"
+              loading="lazy"
+              width="1536"
+              height="1024"
+            />
+            <span className="project-art-label">
+              One customer&apos;s policy count: 82 → 1
+            </span>
           </div>
           <h3>Insurance Data Warehouse</h3>
           <p>
@@ -575,6 +640,32 @@ function Experience() {
 }
 
 function Toolkit() {
+  const featured = [
+    { name: "Python", icon: "python", area: "Pipelines & analysis" },
+    { name: "Apache Kafka", icon: "apachekafka", area: "Streaming data" },
+    { name: "Oracle Database", icon: "oracle", area: "Warehouse & SQL" },
+    {
+      name: "Oracle Data Integrator",
+      icon: "oracle",
+      code: "ODI",
+      area: "ETL / ELT",
+    },
+    {
+      name: "Oracle GoldenGate",
+      icon: "oracle",
+      code: "OGG",
+      area: "Change capture",
+    },
+    { name: "PostgreSQL", icon: "postgresql", area: "Retrieval storage" },
+    {
+      name: "Apache Spark",
+      icon: "apachespark",
+      area: "Distributed processing",
+    },
+    { name: "FastAPI", icon: "fastapi", area: "Service layer" },
+    { name: "Flutter", icon: "flutter", area: "Mobile interface" },
+    { name: "Docker", icon: "docker", area: "Application delivery" },
+  ];
   const groups = [
     [
       "Machine learning",
@@ -611,6 +702,33 @@ function Toolkit() {
         </h2>
         <p>System capabilities, from research to production.</p>
       </div>
+      <div className="tech-gallery" aria-label="Featured technology stack">
+        {featured.map(({ name, icon, code, area }, index) => (
+          <div
+            className="tech-card"
+            key={name}
+            data-reveal
+            style={{ "--reveal-delay": `${(index % 4) * 80}ms` }}
+          >
+            <div className="tech-logo-stage">
+              <img
+                src={`${BASE}/tech-icons/${icon}.svg`}
+                alt=""
+                width="94"
+                height="94"
+                loading="lazy"
+              />
+              {code && <span className="tech-product-code">{code}</span>}
+            </div>
+            <span className="tech-card-index">0{index + 1} / STACK</span>
+            <h3>{name}</h3>
+            <p>{area}</p>
+          </div>
+        ))}
+      </div>
+      <p className="tech-gallery-note">
+        ODI and GoldenGate are Oracle products; their cards use the Oracle mark.
+      </p>
       <div className="toolkit-grid">
         {groups.map(([name, description, eyebrow, tools], index) => (
           <div key={name} data-reveal>
@@ -646,12 +764,14 @@ function Credentials() {
           </p>
         </div>
         <div className="credential-grid">
-          {credentials.map(({ title, issuer, date, image, href }) => (
+          {credentials.map(({ title, issuer, date, image, href }, index) => (
             <Link
               key={title}
               className="credential-card"
               href={href}
               showArrow={false}
+              data-reveal
+              style={{ "--reveal-delay": `${(index % 3) * 90}ms` }}
             >
               <div className="credential-preview" aria-hidden="true">
                 <img
@@ -740,10 +860,12 @@ function Footer() {
 }
 
 export default function Portfolio() {
+  const [theme, setTheme] = useTheme();
   useScrollReveal();
+  useScrollMotion();
   return (
     <>
-      <Nav />
+      <Nav theme={theme} setTheme={setTheme} />
       <main>
         <Hero />
         <Work />
