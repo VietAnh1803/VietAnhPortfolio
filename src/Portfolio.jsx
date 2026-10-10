@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const email = "nguyenvietanh1803.hcmut@gmail.com";
@@ -571,6 +571,10 @@ function HealthVisual() {
 }
 
 function Work() {
+  const diagramDialogRef = useRef(null);
+  const openDiagram = () => diagramDialogRef.current?.showModal();
+  const closeDiagram = () => diagramDialogRef.current?.close();
+
   return (
     <section className="work section-pad shell" id="work">
       <div className="section-head" data-reveal>
@@ -685,21 +689,19 @@ function Work() {
               warehouse and error tables.
             </p>
           </div>
-          <a
-            href={`${BASE}/insurance-dwh-flow.svg`}
-            target="_blank"
-            rel="noreferrer"
+          <button
+            type="button"
+            onClick={openDiagram}
             className="warehouse-architecture-open"
           >
-            Open full-size diagram <span aria-hidden="true">↗</span>
-          </a>
+            View full-size diagram <span aria-hidden="true">↗</span>
+          </button>
         </figcaption>
-        <a
+        <button
+          type="button"
           className="warehouse-architecture-image"
-          href={`${BASE}/insurance-dwh-flow.svg`}
-          target="_blank"
-          rel="noreferrer"
-          aria-label="Open the insurance data warehouse flow diagram at full size"
+          onClick={openDiagram}
+          aria-label="Enlarge the insurance data warehouse flow diagram"
         >
           <img
             src={`${BASE}/insurance-dwh-flow.svg`}
@@ -708,7 +710,10 @@ function Work() {
             width="1692"
             height="636"
           />
-        </a>
+          <span className="warehouse-architecture-image-cue" aria-hidden="true">
+            VIEW LARGER ↗
+          </span>
+        </button>
         <span className="warehouse-architecture-mobile-hint">
           Swipe to follow the complete flow →
         </span>
@@ -719,6 +724,47 @@ function Work() {
           <span>04 / DWH</span>
         </div>
       </figure>
+      <dialog
+        className="warehouse-diagram-dialog"
+        ref={diagramDialogRef}
+        aria-label="Insurance data warehouse flow diagram"
+      >
+        <div className="warehouse-diagram-panel">
+          <div className="warehouse-diagram-toolbar">
+            <div>
+              <span>INSURANCE DATA WAREHOUSE / ARCHITECTURE</span>
+              <small>Sources → ODS → ODI → DWH</small>
+            </div>
+            <button
+              type="button"
+              className="warehouse-diagram-close"
+              onClick={closeDiagram}
+              aria-label="Close diagram"
+            >
+              ×
+            </button>
+          </div>
+          <div className="warehouse-diagram-scroll">
+            <img
+              src={`${BASE}/insurance-dwh-flow.svg`}
+              alt="Insurance data warehouse flow: source systems to ODS, ODI extract and transform layers, then DWH staging, warehouse and error tables"
+              width="1692"
+              height="636"
+            />
+          </div>
+          <span className="warehouse-diagram-hint">
+            Scroll or swipe to inspect the diagram. Press Esc or click outside
+            to close.
+          </span>
+        </div>
+        <button
+          type="button"
+          className="warehouse-diagram-dismiss"
+          onClick={closeDiagram}
+          aria-label="Close diagram by clicking outside"
+          tabIndex={-1}
+        />
+      </dialog>
       <div className="earlier-work" data-reveal>
         <h3>More projects</h3>
         <p>
