@@ -772,13 +772,33 @@ function Work() {
           apps.
         </p>
         <div>
+          <Link href="https://github.com/VietAnh1803/LeakageLab">
+            <span>LeakageLab temporal benchmark</span>
+            <small>
+              Synthetic data · Delayed labels · 18 passing tests · 2026
+            </small>
+          </Link>
+          <Link href="https://www.kaggle.com/code/vanh1803/leakagelab-public-reference-solver">
+            <span>Run LeakageLab on Kaggle</span>
+            <small>
+              Public notebook · CPU · Offline input · 10,051 predictions
+            </small>
+          </Link>
           <Link href="https://github.com/VietAnh1803/Big-data-vnstock-pipeline">
             <span>Vietnam stock data pipeline</span>
             <small>Personal · Kafka / Spark / Snowflake · 2025–26</small>
           </Link>
           <Link href="https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline">
-            <span>Adult income ML pipeline</span>
-            <small>Team coursework · Model comparison · 2026</small>
+            <span>Adult income: ML and PyTorch</span>
+            <small>
+              Official test · LightGBM 86.73% / MLP 84.09% accuracy · 2026
+            </small>
+          </Link>
+          <Link href="https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline/blob/main/reports/IMPROVEMENT_REPORT.md">
+            <span>Adult income evaluation report</span>
+            <small>
+              Validation-only selection · Three DL seeds · Measured results
+            </small>
           </Link>
           <Link href="https://github.com/VietAnh1803/Data-Visualization-AI-Impact">
             <span>AI impact data dashboard</span>
