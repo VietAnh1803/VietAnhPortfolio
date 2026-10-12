@@ -307,15 +307,16 @@ const systems = [
     name: "Warehouse",
     eyebrow: "01 / DATA ENGINEERING",
     nodes: [
-      ["Source", "Insurance records", "Oracle · CDC"],
+      ["Source", "Insurance records", "Oracle source systems"],
       ["Process", "Load & reconcile", "ODI · PL/SQL"],
-      ["Outcome", "Trustworthy counts", "82 → 1 corrected in one case"],
+      ["Outcome", "Trustworthy counts", "Source and warehouse reconciliation"],
     ],
-    result: "82 → 1",
+    result: "CHECKED",
     resultLabel: "Policy count reconciled",
     resultDetail:
-      "One customer case, traced from source records to the warehouse result.",
-    footnote: "Also corrected sales-channel classifications across ~68k rows.",
+      "Policy counts and classifications reconciled against source records.",
+    footnote:
+      "Developed warehouse loads and corrected sales-channel classifications.",
   },
   {
     key: "retrieval",
@@ -513,8 +514,9 @@ function Hero() {
           <em>clarity.</em>
         </h1>
         <p className="hero-description">
-          I&apos;m Nguyen Viet Anh. I turn complex data into reliable systems
-          and machine learning into measurable, real-world value.
+          I&apos;m Nguyen Viet Anh, a Data Engineer working with Oracle ETL and
+          Python. My projects span data pipelines, model evaluation and mobile
+          applications.
         </p>
         <div className="hero-actions">
           <a className="button-primary" href="#work">
@@ -701,7 +703,7 @@ function Work() {
   return (
     <section className="work section-pad shell" id="work">
       <div className="section-head" data-reveal>
-        <span className="section-eyebrow">// DEEP ARCHITECTURE REPOSITORY</span>
+        <span className="section-eyebrow">// SELECTED TECHNICAL WORK</span>
         <h2>
           Selected work<span className="period">.</span>
         </h2>
@@ -780,20 +782,20 @@ function Work() {
               height="1024"
             />
             <span className="project-art-label">
-              One customer&apos;s policy count: 82 → 1
+              Source records → Reconciled warehouse
             </span>
           </div>
           <h3>Insurance Data Warehouse</h3>
           <p>
-            More reliable insurance reporting: maintained Oracle warehouse loads
-            and CDC, reconciled a policy-count error, and corrected
-            sales-channel classifications across about 68,000 rows.
+            Maintained Oracle warehouse loads with PL/SQL and ODI, reconciled
+            policy-count errors, and corrected sales-channel classifications.
+            Configured GoldenGate CDC for a separate public-sector warehouse.
           </p>
           <div className="tags">
             <span>Oracle</span>
             <span>PL/SQL</span>
             <span>ODI</span>
-            <span>GoldenGate</span>
+            <span>SCD Type 2</span>
           </div>
           <a className="project-flow-jump" href="#dwh-architecture">
             Explore the warehouse flow <span aria-hidden="true">↘</span>
@@ -888,6 +890,114 @@ function Work() {
       </dialog>
       <article className="project-panel stock-pipeline-panel" data-reveal>
         <div className="panel-meta">
+          <span>Temporal evaluation & automated grading</span>
+          <span>Independent, AI-assisted project · 2026</span>
+        </div>
+        <h3>LeakageLab — Temporal Risk Benchmark</h3>
+        <p>
+          Built a benchmark around 50,000 synthetic transactions with delayed
+          labels. A chronological split and feature-availability checks test
+          whether a model can use only information available at prediction time.
+          The isolated solver selects on validation; the grader checks
+          prediction IDs, coverage and probabilities. All 18 automated tests
+          pass locally.
+        </p>
+        <p>
+          The public Kaggle notebook runs on CPU with Internet off and produces
+          10,051 predictions. Logistic regression achieved validation AP 0.1323;
+          recorded author-side test AP was 0.1931. Synthetic results are a
+          methodology demonstration, with no competition ranking or independent
+          benchmark claim.
+        </p>
+        <div className="tags">
+          {[
+            "Python",
+            "scikit-learn",
+            "Temporal validation",
+            "18 tests",
+            "Kaggle CPU",
+          ].map((tool) => (
+            <span key={tool}>{tool}</span>
+          ))}
+        </div>
+        <div className="project-links">
+          <Link href="https://github.com/VietAnh1803/LeakageLab">
+            Source & evaluation protocol
+          </Link>
+          <Link href="https://www.kaggle.com/code/vanh1803/leakagelab-public-reference-solver">
+            Run on Kaggle
+          </Link>
+        </div>
+      </article>
+      <article
+        className="project-panel stock-pipeline-panel adult-income-panel"
+        data-reveal
+      >
+        <div className="panel-meta">
+          <span>ML experiments & local evaluation</span>
+          <span>Coursework + personal extension · Oct 2026</span>
+        </div>
+        <h3>Adult Income — Classical ML and PyTorch</h3>
+        <p>
+          Compared LightGBM and PyTorch MLPs on UCI Adult, checking duplicate
+          feature rows and conflicting labels. Preprocessing fits on training;
+          models and thresholds are selected on validation. A CPU rerun on
+          16,249 filtered, previously observed test rows reproduced LightGBM
+          accuracy 86.73% and ROC-AUC 0.9276, and MLP accuracy 84.09–84.50%
+          across three seeds.
+        </p>
+        <p>
+          Built an independent logistic reference and ID-matched probability
+          scorer with schema, coverage and probability checks. All 50 automated
+          tests pass. The scoring demo uses 6,508 public validation records;
+          neither those labels nor the previously observed test form a secure
+          hidden evaluation.
+        </p>
+        <p>
+          Dropout, weight decay and validation early stopping control fitting.
+          The seed-42 MLP stopped at epoch 15 and restored epoch 8;
+          train/validation AP was 0.8031/0.8006. Tests check checkpoint weights.
+          These diagnostics monitor overfitting; underfitting has not been ruled
+          out.
+        </p>
+        <figure className="adult-result-figure">
+          <img
+            src={`${BASE}/adult-income-roc.png`}
+            alt="Measured test ROC curves: LightGBM AUC 0.9276 and PyTorch MLP AUC 0.9103"
+            width="900"
+            height="600"
+            loading="lazy"
+          />
+          <figcaption>
+            Source: October 12 CPU run; 16,249 filtered UCI Adult test rows.
+            Curves use recorded predictions.
+          </figcaption>
+        </figure>
+        <div className="tags">
+          {[
+            "Python",
+            "scikit-learn",
+            "LightGBM",
+            "PyTorch",
+            "Pandas / NumPy",
+            "Validation AP",
+            "Local scoring CLI",
+            "50 automated tests",
+          ].map((tool) => (
+            <span key={tool}>{tool}</span>
+          ))}
+        </div>
+        <div className="project-links">
+          <Link href="https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline">
+            Source & reproduction
+          </Link>
+          <Link href="https://colab.research.google.com/github/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline/blob/main/notebooks/adult_income_improved.ipynb">
+            Open in Colab
+          </Link>
+        </div>
+      </article>
+      <article className="project-panel stock-pipeline-panel" data-reveal>
+        <div className="panel-meta">
           <span>Streaming & data warehousing</span>
           <span>Personal project · 2025–26</span>
         </div>
@@ -966,19 +1076,19 @@ function Experience() {
       "Jun 2025 – Present",
       "Data Engineer",
       "at OSAS Joint Stock Company via AI-MED",
-      "Developing warehouse loads, search, and retrieval pipelines for financial and insurance data.",
+      "Building Oracle warehouse loads for insurance, crawling and embedding pipelines for medical and financial-report assistants, and mobile UI/UX for the chatbot applications.",
     ],
     [
       "Sep 2025 – May 2026",
       "HealthMate thesis",
-      "at HCMUT",
+      "at HCMUT, VNU-HCM",
       "Collaborated on wearable health research, model benchmarking, OCR evaluation, and Flutter interface design.",
     ],
     [
       "2022 – 2026",
-      "B.Sc. Computer Science",
-      "at HCMUT",
-      "Majored in Information Systems at Ho Chi Minh City University of Technology.",
+      "Computer Science — program completed",
+      "at HCMUT, VNU-HCM",
+      "Completed all requirements for the Computer Science program, majoring in Information Systems, at Ho Chi Minh City University of Technology (HCMUT), VNU-HCM. Expected graduation: November 2026.",
     ],
   ];
   return (
@@ -1314,6 +1424,7 @@ function Footer() {
               LinkedIn
             </Link>
             <Link href="https://github.com/VietAnh1803">GitHub</Link>
+            <Link href="https://www.kaggle.com/vanh1803">Kaggle</Link>
           </div>
           <a href="#top">Back to top ↑</a>
         </div>
