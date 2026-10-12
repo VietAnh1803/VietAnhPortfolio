@@ -4,6 +4,12 @@ const BASE = import.meta.env.BASE_URL.replace(/\/$/, "");
 const email = "nguyenvietanh1803.hcmut@gmail.com";
 const external = { target: "_blank", rel: "noopener noreferrer" };
 const THEME_KEY = "nva-theme";
+const NAV_ITEMS = [
+  { id: "work", label: "Work" },
+  { id: "experience", label: "Experience" },
+  { id: "stack", label: "Stack" },
+  { id: "credentials", label: "Credentials" },
+];
 
 function useTheme() {
   const [theme, setTheme] = useState(() =>
@@ -80,6 +86,59 @@ function useScrollMotion() {
     };
   }, []);
 }
+
+function useActiveSection() {
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const sections = [...NAV_ITEMS, { id: "contact" }]
+      .map(({ id }) => document.getElementById(id))
+      .filter(Boolean);
+    let frame = 0;
+    const update = () => {
+      // Match the visible content, accounting for each section's top padding.
+      const readingLine =
+        document.querySelector(".nav-inner").getBoundingClientRect().bottom +
+        32;
+      let current = "";
+      sections.forEach((section) => {
+        const contentTop =
+          section.getBoundingClientRect().top +
+          parseFloat(getComputedStyle(section).paddingTop);
+        const activationLine =
+          section.id === "contact"
+            ? Math.max(readingLine, window.innerHeight / 2)
+            : readingLine;
+        if (contentTop <= activationLine) {
+          current = section.id === "contact" ? "" : section.id;
+        }
+      });
+      setActiveSection(current);
+      frame = 0;
+    };
+    const requestUpdate = () => {
+      if (!frame) frame = window.requestAnimationFrame(update);
+    };
+    const observer =
+      typeof ResizeObserver !== "undefined"
+        ? new ResizeObserver(requestUpdate)
+        : null;
+    sections.forEach((section) => observer?.observe(section));
+    requestUpdate();
+    window.addEventListener("scroll", requestUpdate, { passive: true });
+    window.addEventListener("resize", requestUpdate);
+    window.addEventListener("hashchange", requestUpdate);
+    return () => {
+      observer?.disconnect();
+      window.removeEventListener("scroll", requestUpdate);
+      window.removeEventListener("resize", requestUpdate);
+      window.removeEventListener("hashchange", requestUpdate);
+      if (frame) window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
+  return activeSection;
+}
 const Arrow = ({ diagonal = false }) => (
   <span aria-hidden="true" className="arrow">
     {diagonal ? "↗" : "→"}
@@ -99,6 +158,13 @@ const Link = ({
 );
 
 const credentials = [
+  {
+    title: "Relational Database Administration (DBA)",
+    issuer: "IBM · Coursera",
+    date: "Oct 2026",
+    image: "ibm-dba.jpg",
+    href: "https://www.coursera.org/verify/GW2W3LEGSOQE",
+  },
   {
     title: "Python Project for Data Engineering",
     issuer: "IBM · Coursera",
@@ -173,6 +239,7 @@ const credentials = [
 
 function Nav({ theme, setTheme }) {
   const [open, setOpen] = useState(false);
+  const activeSection = useActiveSection();
   return (
     <header className="site-header">
       <div className="shell nav-inner">
@@ -201,18 +268,16 @@ function Nav({ theme, setTheme }) {
           className={`main-nav ${open ? "open" : ""}`}
           aria-label="Primary navigation"
         >
-          <a href="#work" onClick={() => setOpen(false)}>
-            Work
-          </a>
-          <a href="#experience" onClick={() => setOpen(false)}>
-            Experience
-          </a>
-          <a href="#stack" onClick={() => setOpen(false)}>
-            Stack
-          </a>
-          <a href="#credentials" onClick={() => setOpen(false)}>
-            Credentials
-          </a>
+          {NAV_ITEMS.map(({ id, label }) => (
+            <a
+              key={id}
+              href={`#${id}`}
+              aria-current={activeSection === id ? "location" : undefined}
+              onClick={() => setOpen(false)}
+            >
+              {label}
+            </a>
+          ))}
         </nav>
         <div className="nav-actions">
           <button
@@ -448,9 +513,8 @@ function Hero() {
           <em>clarity.</em>
         </h1>
         <p className="hero-description">
-          I&apos;m Nguyen Viet Anh. I build reliable data systems and evaluate
-          machine learning for real-world use—from warehouse pipelines to cited
-          answers and measured model performance.
+          I&apos;m Nguyen Viet Anh. I turn complex data into reliable systems
+          and machine learning into measurable, real-world value.
         </p>
         <div className="hero-actions">
           <a className="button-primary" href="#work">
@@ -570,6 +634,65 @@ function HealthVisual() {
   );
 }
 
+const moreProjects = [
+  {
+    title: "LeakageLab temporal benchmark",
+    date: "2026",
+    year: 2026,
+    href: "https://github.com/VietAnh1803/LeakageLab",
+    detail: "Synthetic data · Delayed labels · 18 passing tests",
+  },
+  {
+    title: "Run LeakageLab on Kaggle",
+    date: "2026",
+    year: 2026,
+    href: "https://www.kaggle.com/code/vanh1803/leakagelab-public-reference-solver",
+    detail: "Public notebook · CPU · Offline input · 10,051 predictions",
+  },
+  {
+    title: "Adult income: ML and PyTorch",
+    date: "2026",
+    year: 2026,
+    href: "https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline",
+    detail: "Official test · LightGBM 86.73% / MLP 84.09% accuracy",
+  },
+  {
+    title: "Adult income evaluation report",
+    date: "2026",
+    year: 2026,
+    href: "https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline/blob/main/reports/IMPROVEMENT_REPORT.md",
+    detail: "Validation-only selection · Three DL seeds · Measured results",
+  },
+  {
+    title: "Vietnam stock data pipeline",
+    date: "2025–26",
+    year: 2026,
+    href: "https://github.com/VietAnh1803/Big-data-vnstock-pipeline",
+    detail: "Personal · Kafka / Spark / Snowflake",
+  },
+  {
+    title: "AI impact data dashboard",
+    date: "2025–26",
+    year: 2026,
+    href: "https://github.com/VietAnh1803/Data-Visualization-AI-Impact",
+    detail: "EDA · Python / interactive HTML",
+  },
+  {
+    title: "Smart Farm IoT",
+    date: "2025",
+    year: 2025,
+    href: "https://github.com/baohuynhhcmut/smartfarm-fe",
+    detail: "Frontend · React / MQTT",
+  },
+  {
+    title: "Multi-vendor e-commerce",
+    date: "2024",
+    year: 2024,
+    href: "https://github.com/HoaNguyenz/Multi_vendor_ecom",
+    detail: "Frontend · React / Tailwind",
+  },
+].sort((a, b) => b.year - a.year);
+
 function Work() {
   const diagramDialogRef = useRef(null);
   const openDiagram = () => diagramDialogRef.current?.showModal();
@@ -582,15 +705,19 @@ function Work() {
         <h2>
           Selected work<span className="period">.</span>
         </h2>
-        <p>Research, engineering, and the details that connect them.</p>
+        <p>
+          Reliable reporting, traceable answers, and models evaluated against
+          evidence.
+        </p>
       </div>
       <article className="featured-project" data-reveal>
         <div className="feature-copy">
           <span className="project-type">Research / 2025–2026</span>
           <h3>HealthMate</h3>
           <p className="project-lead">
-            I designed the Flutter interface and helped evaluate stress models,
-            readiness prediction, and prescription OCR.
+            Making wearable health research usable: I designed the Flutter
+            interface and helped evaluate stress models, readiness prediction,
+            and prescription OCR.
           </p>
           <p className="project-detail">
             Compared models and OCR approaches against measured outcomes. Stress
@@ -628,8 +755,9 @@ function Work() {
           </div>
           <h3>Financial Statement Assistant</h3>
           <p>
-            Built a Vietnamese report pipeline with figure extraction, hybrid
-            retrieval, LLM summaries, and source-page references.
+            Helping teams find answers in Vietnamese financial reports, with
+            figure extraction, hybrid retrieval, LLM summaries, and references
+            back to the source page.
           </p>
           <div className="tags">
             <span>FastAPI</span>
@@ -657,9 +785,9 @@ function Work() {
           </div>
           <h3>Insurance Data Warehouse</h3>
           <p>
-            Maintained Oracle warehouse loads and CDC. Reconciled a policy-count
-            error and corrected sales-channel classifications across about
-            68,000 rows.
+            More reliable insurance reporting: maintained Oracle warehouse loads
+            and CDC, reconciled a policy-count error, and corrected
+            sales-channel classifications across about 68,000 rows.
           </p>
           <div className="tags">
             <span>Oracle</span>
@@ -689,13 +817,6 @@ function Work() {
               warehouse and error tables.
             </p>
           </div>
-          <button
-            type="button"
-            onClick={openDiagram}
-            className="warehouse-architecture-open"
-          >
-            View full-size diagram <span aria-hidden="true">↗</span>
-          </button>
         </figcaption>
         <button
           type="button"
@@ -768,50 +889,17 @@ function Work() {
       <div className="earlier-work" data-reveal>
         <h3>More projects</h3>
         <p>
-          Public code across streaming data, machine learning, analysis, and
-          apps.
+          Reproducible benchmarks, streaming pipelines, and usable apps. Newest
+          first.
         </p>
         <div>
-          <Link href="https://github.com/VietAnh1803/LeakageLab">
-            <span>LeakageLab temporal benchmark</span>
-            <small>
-              Synthetic data · Delayed labels · 18 passing tests · 2026
-            </small>
-          </Link>
-          <Link href="https://www.kaggle.com/code/vanh1803/leakagelab-public-reference-solver">
-            <span>Run LeakageLab on Kaggle</span>
-            <small>
-              Public notebook · CPU · Offline input · 10,051 predictions
-            </small>
-          </Link>
-          <Link href="https://github.com/VietAnh1803/Big-data-vnstock-pipeline">
-            <span>Vietnam stock data pipeline</span>
-            <small>Personal · Kafka / Spark / Snowflake · 2025–26</small>
-          </Link>
-          <Link href="https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline">
-            <span>Adult income: ML and PyTorch</span>
-            <small>
-              Official test · LightGBM 86.73% / MLP 84.09% accuracy · 2026
-            </small>
-          </Link>
-          <Link href="https://github.com/VietAnh1803/HCMUT_ML_AdultCensusIncome_Pipeline/blob/main/reports/IMPROVEMENT_REPORT.md">
-            <span>Adult income evaluation report</span>
-            <small>
-              Validation-only selection · Three DL seeds · Measured results
-            </small>
-          </Link>
-          <Link href="https://github.com/VietAnh1803/Data-Visualization-AI-Impact">
-            <span>AI impact data dashboard</span>
-            <small>EDA · Python / interactive HTML · 2025–26</small>
-          </Link>
-          <Link href="https://github.com/HoaNguyenz/Multi_vendor_ecom">
-            <span>Multi-vendor e-commerce</span>
-            <small>Frontend · React / Tailwind · 2024</small>
-          </Link>
-          <Link href="https://github.com/baohuynhhcmut/smartfarm-fe">
-            <span>Smart Farm IoT</span>
-            <small>Frontend · React / MQTT · 2025</small>
-          </Link>
+          {moreProjects.map(({ title, date, href, detail }) => (
+            <Link href={href} key={href}>
+              <span className="earlier-work-date">{date}</span>
+              <span className="earlier-work-title">{title}</span>
+              <small>{detail}</small>
+            </Link>
+          ))}
         </div>
       </div>
     </section>
@@ -850,8 +938,9 @@ function Experience() {
             <em>practice.</em>
           </h2>
           <p>
-            I work across data preparation, model evaluation, and the
-            applications that make results usable.
+            I connect data preparation, model evaluation, and usable
+            applications so teams can work with reliable information and
+            understand the limits behind each result.
           </p>
           <div className="competence-card">
             <small>CORE COMPETENCE</small>

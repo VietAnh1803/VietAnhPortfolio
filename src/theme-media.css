@@ -7,14 +7,15 @@
   --surface-3: #1d211d;
   --ink: #f4f2ec;
   --ink-soft: #e0ded6;
-  --muted: #aaa9a2;
-  --quiet: #8e938d;
+  --muted: #c0c6bd;
+  --quiet: #abb5a7;
   --line: #343832;
   --line-strong: #555b52;
   --accent: #e5e7dc;
   --accent-hover: #ffffff;
   --accent-ink: #151813;
-  --accent-soft: #b4bbac;
+  --accent-text: #b7e99b;
+  --accent-soft: var(--accent-text);
   --signal: #a9bea9;
   --button-bg: #f0efe9;
   --button-ink: #11130f;
@@ -32,14 +33,15 @@
   --surface-3: #e6e9e1;
   --ink: #1d231e;
   --ink-soft: #333c34;
-  --muted: #5d685e;
-  --quiet: #69746a;
+  --muted: #465148;
+  --quiet: #536055;
   --line: #d5dbd2;
   --line-strong: #a9b4a7;
   --accent: #334f3b;
   --accent-hover: #253c2b;
   --accent-ink: #fffefa;
-  --accent-soft: #506d57;
+  --accent-text: #155b3b;
+  --accent-soft: var(--accent-text);
   --signal: #477b5e;
   --button-bg: #1e2b22;
   --button-ink: #fffefa;
@@ -52,7 +54,7 @@
 
 .site-header.is-scrolled .nav-inner {
   box-shadow: 0 22px 58px #0007;
-  border-color: #ffffff59;
+  border-color: #b7e99b88;
 }
 .theme-toggle {
   display: inline-flex;
@@ -253,19 +255,23 @@
   background: var(--bg);
 }
 :root[data-theme="light"] .nav-inner {
-  border-color: #3341343d;
-  background: #faf9f2dc;
+  border-color: #155b3b66;
+  background: #fffefaed;
   box-shadow: 0 15px 40px #2633291f;
 }
 :root[data-theme="light"] .site-header.is-scrolled .nav-inner {
-  border-color: #43594766;
+  border-color: #155b3b88;
   box-shadow: 0 18px 48px #2633292d;
 }
 :root[data-theme="light"] .main-nav a {
   color: #344438;
 }
 :root[data-theme="light"] .main-nav a:hover {
-  color: #111b14;
+  color: var(--accent-text);
+}
+:root[data-theme="light"] .main-nav a[aria-current="location"] {
+  color: #fffefa;
+  box-shadow: 0 3px 12px #155b3b26;
 }
 :root[data-theme="light"] .theme-toggle {
   border-color: #52605455;
@@ -280,10 +286,10 @@
 }
 :root[data-theme="light"] .period,
 :root[data-theme="light"] .wordmark span {
-  color: #57735b;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .section-eyebrow {
-  color: #4f6552;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .hero {
   background: #f2f0e9;
@@ -318,7 +324,7 @@
   text-shadow: none;
 }
 :root[data-theme="light"] .hero h1 em {
-  color: #5b695e;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .hero-description {
   color: #344237;
@@ -335,10 +341,10 @@
   color: #3e5041;
 }
 :root[data-theme="light"] .section-head h2 em {
-  color: #667b69;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .section-head p {
-  color: #5d685e;
+  color: var(--muted);
 }
 :root[data-theme="light"] .featured-project,
 :root[data-theme="light"] .project-panel,
@@ -351,16 +357,16 @@
   background: linear-gradient(125deg, #fffefa, #e9eee7 96%);
 }
 :root[data-theme="light"] .project-type {
-  color: #49614d;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .project-lead {
   color: #253229;
 }
 :root[data-theme="light"] .project-detail {
-  color: #5a665d;
+  color: var(--muted);
 }
 :root[data-theme="light"] .project-links a {
-  color: #2a5135;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .project-links a:hover {
   color: #142d1b;
@@ -369,19 +375,19 @@
   --surface: #121914;
   --surface-2: #0d150f;
   --ink: #f5f6f1;
-  --muted: #adbab0;
-  --quiet: #9dada0;
+  --muted: #c0ccc3;
+  --quiet: #b0c3b6;
   --line: #445147;
   --accent: #d2e2c9;
-  --signal: #afd1b2;
-  --glow: #9bc9aa30;
+  --signal: #39ff6f;
+  --glow: #39ff6f55;
   border-color: #586b5c;
 }
 :root[data-theme="light"] .panel-meta {
-  color: #435946;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .panel-meta span:last-child {
-  color: #68766b;
+  color: var(--muted);
 }
 :root[data-theme="light"] .sags-panel,
 :root[data-theme="light"] .warehouse-panel {
@@ -394,17 +400,17 @@
   background: #e8ece4;
 }
 :root[data-theme="light"] .experience-intro em {
-  color: #526a56;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .competence-card {
   border-color: #c9d5c9;
   background: #f8faf4;
 }
 :root[data-theme="light"] .competence-card span {
-  color: #486750;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .timeline p {
-  color: #526156;
+  color: var(--muted);
 }
 :root[data-theme="light"] .approach {
   border-color: #d1d8cc;
@@ -423,12 +429,12 @@
   color: #2b5a39;
 }
 :root[data-theme="light"] .approach .atlas-select button[aria-pressed="true"] {
-  background: #243529;
-  border-color: #243529;
+  background: var(--accent-text);
+  border-color: var(--accent-text);
   color: #fffefa;
 }
 :root[data-theme="light"] .toolkit-grid small {
-  color: #4e6c55;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .tags span {
   color: #35453a;
@@ -438,7 +444,7 @@
 }
 :root[data-theme="light"] .credential-meta,
 :root[data-theme="light"] .verify-link {
-  color: #3e6348;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .contact-panel {
   border-color: #c5d1c5;
@@ -447,7 +453,7 @@
     url("/data-sculpture-light.webp") right center / cover no-repeat;
 }
 :root[data-theme="light"] .contact-panel h2 a {
-  color: #356044;
+  color: var(--accent-text);
 }
 :root[data-theme="light"] .contact-panel > p {
   color: #475b4b;
