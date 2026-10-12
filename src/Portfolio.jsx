@@ -668,7 +668,7 @@ const moreProjects = [
     date: "2025–26",
     year: 2026,
     href: "https://github.com/VietAnh1803/Big-data-vnstock-pipeline",
-    detail: "Personal · Kafka / Spark / Snowflake",
+    detail: "Kafka · PySpark · TimescaleDB · Snowflake · Streamlit / Plotly",
   },
   {
     title: "AI impact data dashboard",
@@ -886,6 +886,60 @@ function Work() {
           tabIndex={-1}
         />
       </dialog>
+      <article className="project-panel stock-pipeline-panel" data-reveal>
+        <div className="panel-meta">
+          <span>Streaming & data warehousing</span>
+          <span>Personal project · 2025–26</span>
+        </div>
+        <h3>Vietnam Stock Data Pipeline</h3>
+        <p>
+          Collect Vietnamese stock quotes with VNStock and kafka-python, process
+          micro-batches with PySpark Structured Streaming, and write to
+          PostgreSQL / TimescaleDB through JDBC. Incremental sync uses the
+          Snowflake Python Connector and a persisted watermark to feed a Bronze
+          → Silver → DW warehouse with dimension tables and minute-level OHLCV
+          facts. SQL MERGE statements and Snowflake Streams & Tasks support
+          incremental warehouse modeling.
+        </p>
+        <p>
+          Streamlit and Plotly provide realtime and BI dashboards. Docker
+          Compose runs the services, including ZooKeeper, Kafka UI, Spark UI /
+          History Server, and pgAdmin. Nginx provides reverse-proxy access to
+          monitoring UIs with Basic Authentication; Bash scripts and systemd
+          support Linux startup and freshness checks.
+        </p>
+        <div className="tags">
+          {[
+            "Python / SQL",
+            "VNStock",
+            "Kafka / kafka-python",
+            "PySpark / Structured Streaming",
+            "PostgreSQL / TimescaleDB",
+            "Snowflake / Streams & Tasks",
+            "psycopg2 / JDBC",
+            "Snowflake Python Connector",
+            "Pandas / NumPy",
+            "Streamlit / Plotly",
+            "Docker / Docker Compose",
+            "Nginx",
+            "ZooKeeper",
+            "Kafka UI",
+            "Spark UI / History Server",
+            "pgAdmin",
+            "Linux / Bash / systemd",
+          ].map((tool) => (
+            <span key={tool}>{tool}</span>
+          ))}
+        </div>
+        <div className="project-links">
+          <Link href="https://github.com/VietAnh1803/Big-data-vnstock-pipeline">
+            Source & setup
+          </Link>
+          <Link href="https://github.com/VietAnh1803/Big-data-vnstock-pipeline/blob/main/DOCS/SYSTEM_DESIGN.md">
+            System design
+          </Link>
+        </div>
+      </article>
       <div className="earlier-work" data-reveal>
         <h3>More projects</h3>
         <p>
@@ -1012,32 +1066,86 @@ function Toolkit() {
     { name: "FastAPI", icon: "fastapi", area: "Service layer" },
     { name: "Flutter", icon: "flutter", area: "Mobile interface" },
     { name: "Docker", icon: "docker", area: "Application delivery" },
+    { name: "TimescaleDB", icon: "timescale", area: "Time-series staging" },
+    { name: "Snowflake", icon: "snowflake", area: "Cloud data warehouse" },
+    { name: "Streamlit", icon: "streamlit", area: "Realtime & BI dashboards" },
+    { name: "Plotly", icon: "plotly", area: "Interactive charts" },
+    { name: "Nginx", icon: "nginx", area: "UI reverse proxy" },
   ];
   const groups = [
     [
       "Machine learning",
-      "scikit-learn, CatBoost, feature engineering, LOSO / k-fold validation, model interpretation",
+      "scikit-learn, CatBoost, PyTorch, LightGBM, feature engineering, LOSO / k-fold validation, model interpretation",
       "MODEL EVAL & ML",
-      ["scikit-learn", "CatBoost", "LOSO / k-fold CV", "Feature engineering"],
+      [
+        "scikit-learn",
+        "CatBoost",
+        "PyTorch",
+        "LightGBM",
+        "LOSO / k-fold CV",
+        "Feature engineering",
+      ],
     ],
     [
       "Data & retrieval",
-      "Python, SQL, Pandas, PostgreSQL, pgvector, OpenSearch, Oracle, PL/SQL",
+      "Python, SQL, Pandas, NumPy, PostgreSQL / TimescaleDB, pgvector, OpenSearch, Oracle, PL/SQL",
       "STORAGE & RETRIEVAL",
       [
         "Python",
         "SQL / PL-SQL",
         "Pandas",
+        "NumPy",
         "PostgreSQL / pgvector",
+        "TimescaleDB",
         "OpenSearch",
         "Oracle",
       ],
     ],
     [
+      "Streaming & warehouse",
+      "VNStock → Kafka → PySpark Structured Streaming → TimescaleDB → Snowflake. Incremental ETL, persisted watermarks, Bronze / Silver / DW, dimension / fact modeling, SQL MERGE, Snowflake Streams & Tasks.",
+      "STREAMING & ETL",
+      [
+        "VNStock",
+        "Kafka / kafka-python",
+        "PySpark / Structured Streaming",
+        "Snowflake / Streams & Tasks",
+        "Snowflake Python Connector",
+        "psycopg2 / JDBC",
+        "ODI",
+        "GoldenGate",
+      ],
+    ],
+    [
+      "Dashboards & monitoring",
+      "Streamlit and Plotly for realtime and BI dashboards; Kafka UI, Spark UI / History Server, and pgAdmin for service inspection.",
+      "BI & MONITORING",
+      [
+        "Streamlit",
+        "Plotly",
+        "Kafka UI",
+        "Spark UI / History Server",
+        "pgAdmin",
+      ],
+    ],
+    [
+      "Deployment & operations",
+      "Docker Compose services, Nginx reverse proxy with Basic Authentication, ZooKeeper, Linux startup through systemd, and Bash health checks.",
+      "DEPLOYMENT & OPS",
+      [
+        "Docker / Docker Compose",
+        "Nginx",
+        "ZooKeeper",
+        "Linux / Bash",
+        "systemd",
+        "Git / GitHub Actions",
+      ],
+    ],
+    [
       "Applications & infra",
-      "FastAPI, Flutter, Dart, Go, Docker, GitHub Actions",
+      "FastAPI, Flutter, Dart, Go, Ollama, OpenCV, PaddleOCR",
       "APPS & INFRA",
-      ["FastAPI", "Flutter · Dart", "Go", "Docker", "GitHub Actions"],
+      ["FastAPI", "Flutter · Dart", "Go", "Ollama", "OpenCV", "PaddleOCR"],
     ],
   ];
   return (
@@ -1068,7 +1176,9 @@ function Toolkit() {
                 loading="lazy"
               />
             </div>
-            <span className="tech-card-index">0{index + 1} / STACK</span>
+            <span className="tech-card-index">
+              {String(index + 1).padStart(2, "0")} / STACK
+            </span>
             <h3>{name}</h3>
             <p>{area}</p>
           </div>
@@ -1184,6 +1294,7 @@ function Footer() {
             <Link href="https://www.linkedin.com/in/nguyenvietanh180304/">
               LinkedIn profile
             </Link>
+            <Link href={`${BASE}/Nguyen-Viet-Anh-CV.pdf`}>Download CV</Link>
           </div>
         </div>
         <div className="footer-bottom">

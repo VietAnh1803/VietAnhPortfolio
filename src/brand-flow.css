@@ -1,4 +1,10 @@
 /* Product artwork and the supplied insurance warehouse architecture. */
+.stock-pipeline-panel {
+  margin-top: 48px;
+}
+.stock-pipeline-panel .project-links {
+  margin-top: 24px;
+}
 .tech-gallery {
   margin-bottom: 74px;
 }
