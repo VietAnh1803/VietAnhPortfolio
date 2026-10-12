@@ -30,6 +30,6 @@ npm run deploy
 - All 11 known certificates are visible in the credentials grid. IBM courses link to their Coursera verification pages; other cards open the supplied PDFs.
 - Every certificate card shows its certificate preview. Four local PDFs are rendered to JPEG previews; six IBM previews come from their Coursera verification pages, and the DBA preview is rendered from the supplied original PDF.
 - The `public/.nojekyll` file keeps GitHub Pages from applying Jekyll processing to the Vite output.
-- `public/Nguyen-Viet-Anh-CV.pdf` is the updated one-page CV, linked from the contact section and GitHub profile.
+- `public/Nguyen-Viet-Anh-CV.pdf` is the updated one-page CV, linked from the contact section and GitHub profile. It features Adult Income (LightGBM/PyTorch), HealthMate, and the Vietnam Stock Data Pipeline, with consistent project headings, metadata, bullets and plain clickable links.
 
 The site respects `prefers-reduced-motion`. No client-side routing is used, so all sections are accessible from the single project URL.
