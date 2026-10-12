@@ -1066,7 +1066,12 @@ function Toolkit() {
     { name: "FastAPI", icon: "fastapi", area: "Service layer" },
     { name: "Flutter", icon: "flutter", area: "Mobile interface" },
     { name: "Docker", icon: "docker", area: "Application delivery" },
-    { name: "TimescaleDB", icon: "timescale", area: "Time-series staging" },
+    {
+      name: "TimescaleDB",
+      icon: "timescale",
+      area: "Time-series staging · Tiger Data",
+      darkLogoStage: true,
+    },
     { name: "Snowflake", icon: "snowflake", area: "Cloud data warehouse" },
     { name: "Streamlit", icon: "streamlit", area: "Realtime & BI dashboards" },
     { name: "Plotly", icon: "plotly", area: "Interactive charts" },
@@ -1158,31 +1163,33 @@ function Toolkit() {
         <p>System capabilities, from research to production.</p>
       </div>
       <div className="tech-gallery" aria-label="Featured technology stack">
-        {featured.map(({ name, icon, productLogo, area }, index) => (
-          <div
-            className="tech-card"
-            key={name}
-            data-reveal
-            style={{ "--reveal-delay": `${(index % 4) * 80}ms` }}
-          >
+        {featured.map(
+          ({ name, icon, productLogo, area, darkLogoStage }, index) => (
             <div
-              className={`tech-logo-stage${productLogo ? " tech-logo-stage-product" : ""}${name === "Oracle GoldenGate" ? " tech-logo-stage-goldengate" : ""}`}
+              className="tech-card"
+              key={name}
+              data-reveal
+              style={{ "--reveal-delay": `${(index % 4) * 80}ms` }}
             >
-              <img
-                src={`${BASE}/tech-icons/${productLogo ? icon : `${icon}.svg`}`}
-                alt=""
-                width="94"
-                height="94"
-                loading="lazy"
-              />
+              <div
+                className={`tech-logo-stage${productLogo ? " tech-logo-stage-product" : ""}${name === "Oracle GoldenGate" ? " tech-logo-stage-goldengate" : ""}${darkLogoStage ? " tech-logo-stage-brand-dark" : ""}`}
+              >
+                <img
+                  src={`${BASE}/tech-icons/${productLogo ? icon : `${icon}.svg`}?v=20261012-brand`}
+                  alt=""
+                  width="94"
+                  height="94"
+                  loading="lazy"
+                />
+              </div>
+              <span className="tech-card-index">
+                {String(index + 1).padStart(2, "0")} / STACK
+              </span>
+              <h3>{name}</h3>
+              <p>{area}</p>
             </div>
-            <span className="tech-card-index">
-              {String(index + 1).padStart(2, "0")} / STACK
-            </span>
-            <h3>{name}</h3>
-            <p>{area}</p>
-          </div>
-        ))}
+          ),
+        )}
       </div>
       <div className="toolkit-grid">
         {groups.map(([name, description, eyebrow, tools], index) => (

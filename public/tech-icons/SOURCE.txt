@@ -11,7 +11,23 @@ Product names and logos identify the technologies used; they do not imply endors
 The PNG logos for Oracle Database, Oracle Data Integrator, and Oracle
 GoldenGate were supplied by the portfolio owner for this portfolio.
 
-Snowflake, Timescale, Streamlit, Plotly and Nginx SVGs come from Simple Icons:
+Snowflake, Plotly and Nginx SVG paths come from Simple Icons:
 https://github.com/simple-icons/simple-icons
 Source revision: dc7b10662a0a2cfdfc9305e2a2b06c023c30724a
 The Simple Icons CC0 license is included as LICENSE.simple-icons.md.
+
+The monochrome paths have explicit brand fills, checked on 2026-10-12:
+- Snowflake #29B5E8: https://www.snowflake.com/brand-guidelines/
+- Plotly #7A76FF: https://plotly.com/brand-guidelines/
+- Nginx #009639: Simple Icons metadata, citing https://www.nginx.com/press/
+
+Streamlit uses the unmodified official multicolor mark:
+https://streamlit.io/images/brand/streamlit-mark-color.svg
+Brand reference: https://streamlit.io/brand
+
+TimescaleDB uses the current official Tiger Data yellow badge, unmodified,
+on a dark logo stage as specified for that variant:
+https://assets.tigerdata.com/timescale-web/brand/tiger-data/flat-logos/download/badge-yellow.svg
+Brand reference: https://www.tigerdata.com/brand
+The legacy Simple Icons clock/tiger mark was replaced. TimescaleDB remains
+the database product name; Tiger Data is the current company brand.
