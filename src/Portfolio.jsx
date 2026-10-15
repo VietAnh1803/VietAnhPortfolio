@@ -332,7 +332,7 @@ const systems = [
     resultDetail:
       "Report figures and heading-aware chunks remain linked to source pages.",
     footnote:
-      "A report pipeline built at OSAS Joint Stock Company via AI-MED, from figures and heading chunks to answers.",
+      "A report pipeline built at OSAS Joint Stock Company, from figures and heading chunks to answers.",
   },
   {
     key: "evaluation",
@@ -741,7 +741,7 @@ function Work() {
         <article className="project-panel sags-panel" data-reveal>
           <div className="panel-meta">
             <span>Applied AI</span>
-            <span>OSAS Joint Stock Company via AI-MED</span>
+            <span>OSAS Joint Stock Company</span>
           </div>
           <div className="project-art project-art-retrieval">
             <img
@@ -771,7 +771,7 @@ function Work() {
         <article className="project-panel warehouse-panel" data-reveal>
           <div className="panel-meta">
             <span>Data engineering</span>
-            <span>OSAS Joint Stock Company via AI-MED</span>
+            <span>OSAS Joint Stock Company</span>
           </div>
           <div className="project-art project-art-warehouse">
             <img
@@ -1075,7 +1075,7 @@ function Experience() {
     [
       "Jun 2025 – Present",
       "Data Engineer",
-      "at OSAS Joint Stock Company via AI-MED",
+      "at OSAS Joint Stock Company",
       "Building Oracle warehouse loads for insurance, crawling and embedding pipelines for medical and financial-report assistants, and mobile UI/UX for the chatbot applications.",
     ],
     [
